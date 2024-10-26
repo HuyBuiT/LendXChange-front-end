@@ -1,0 +1,40 @@
+export default {
+  lTotalInterestPaid: 'Total Interest Paid',
+  lTotalActiveValue: 'Total Active Contracts Value',
+  lTotalBorrowed: 'Total Borrowed',
+  lContractDetail: 'Contract Detail',
+
+  fmFromActiveContract_one: 'from {{count}} active contract',
+  fmFromActiveContract_other: 'from {{count}} active contracts',
+  fmFromContract_one: 'from {{count}} contract',
+  fmFromContract_other: 'from {{count}} contracts',
+
+  lBorrowInterest: 'Borrow Interest',
+  lDuration: 'Duration',
+  lCollateral: 'Collateral',
+  lHealthRatio: 'Health Ratio',
+  lStatus: 'Status',
+  lDepositedCollateral: 'Deposited Collateral',
+  lBorrowerFee: 'Borrower fee',
+  lLiquidatedHealthRatio: 'Health ratio before liquidating',
+  lLiquidatedAssets: 'Liquidated asset',
+  lRepaidAmount: 'Repaid asset amount',
+  lTotalReceive: 'Total you received after liquidation',
+  lTotalYouNeedToRepay: 'Total you need to repay',
+
+  lEdit: 'Edit',
+  lDetail: 'Detail',
+  lRepay: 'Repay',
+  lTotalRepay: 'Total you repaid',
+  lBorrowFee: 'Borrow fee',
+  lCancelEdit: 'Cancel Edit',
+
+  fmRepaidAgo: 'Repaid {{value}} ago',
+  fmLiquidatedAgo: 'Liquidated {{value}} ago',
+  fmRemainTime: '{{value}} remaining',
+  fmUntilLiquidation: '{{value}} until liquidation',
+
+  fmRepay: 'Repay {{value}}',
+  fmDeposit: 'Deposit {{value}}',
+  fmWithdraw: 'Withdraw {{value}}',
+};

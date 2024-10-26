@@ -1,0 +1,19 @@
+.AccountDropdownMenu_connectedAccount__div2ql0 {
+  height: 32px !important;
+  border-radius: 48px !important;
+  background: rgb(196 201 211 / 0.2) !important;
+  font-family: "Inter", sans-serif !important;
+}
+.AccountDropdownMenu_connectedAccount__div2ql0 > div {
+  font-weight: 400 !important;
+  color: rgb(229 231 235) !important;
+  font-family: inherit !important;
+  font-family: "Inter", sans-serif !important;
+}
+
+.AccountDropdownMenu_menuContent__div2ql1 {
+  z-index: 10 !important;
+  max-height: 180px !important;
+  overflow-x: hidden !important;
+  overflow-y: scroll !important;
+}

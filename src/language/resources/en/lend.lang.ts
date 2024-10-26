@@ -1,0 +1,31 @@
+export default {
+  lEdit: 'Edit',
+  lCancel: 'Cancel',
+  lUpdating: 'Updating',
+  lLendInterest: 'Lend Interest',
+  lWaitingInterest: 'Waiting Interest',
+  lDetail: 'Detail',
+  lOpenOffer: 'Open Offer',
+  lContract: 'Contract',
+  lTotalInterestEarned: 'Total Interest Earned',
+  lTotalActiveContracts: 'Total Active Contracts Value',
+  lTotalOpenOffer: 'Total Open Offer Value',
+  lCancelOffer: 'Cancel Offer',
+  lUpdateOffer: 'Update Offer',
+  lEditOffer: 'Edit Offer',
+  lTxid: 'Txid',
+  lCancelOfferDetail: 'Cancel Offer Detail',
+  lContractDetail: 'Contract Detail',
+  lTotalReceive: 'Total you received',
+
+  fmFromOpenOffer_one: 'from {{count}} open offer',
+  fmFromOpenOffer_other: 'from {{count}} open offers',
+  fmFromActiveContract_one: 'from {{count}} active contract',
+  fmFromActiveContract_other: 'from {{count}} active contracts',
+
+  fmRemaining: '{{time}} remaining',
+  fmRepaidAgo: 'Repaid {{time}} ago',
+  fmCancelAgo: 'Canceled {{time}} ago',
+
+  fmSeekingBorrower: 'Seeking Borrower for {{time}}',
+};
