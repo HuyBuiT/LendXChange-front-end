@@ -115,19 +115,7 @@ export const HomeProvider: React.FC<HomeProviderProps> = ({ children }) => {
   };
 
   const handleCheckNft = async () => {
-    if (process.env.CHECK_HAS_NFT === 'true') {
-      if (selectedChain === SupportedChainEnum.Solana) {
-        const res = await handleCheckHasNft(connectedChainAddress);
-        setIsHasNft(res);
-      } else if (selectedChain === SupportedChainEnum.Sui) {
-        const res = await checkHasSuiNft();
-        setIsHasNft(res);
-      } else {
-        setIsHasNft(true);
-      }
-    } else {
       setIsHasNft(true);
-    }
   };
 
   const handleGetWaitingInterest = async () => {
@@ -135,18 +123,6 @@ export const HomeProvider: React.FC<HomeProviderProps> = ({ children }) => {
       const res = await handleGetInterestScallop();
 
       setInterestCreateOffer(res);
-      return;
-    }
-
-    if (selectedChain === SupportedChainEnum.Solana) {
-      const res = await handleGetInterestKamino();
-
-      setInterestCreateOffer(res * 100);
-      return;
-    }
-
-    if (selectedChain === SupportedChainEnum.SuiMovement) {
-      setInterestCreateOffer(0);
       return;
     }
   };

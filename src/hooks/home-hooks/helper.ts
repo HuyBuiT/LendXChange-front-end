@@ -15,7 +15,7 @@ export const refactorOfferTemplatesData = (
 
   const refactoredData = offerTemplates.map((item) => {
     return {
-      id: item.offerTemplateId,
+      id: item.id,
       amount: Number(item?.amount / Math.pow(10, 6)),
       volume: item?.volume7d
         ? Number(item?.volume7d / Math.pow(10, 6))
@@ -28,8 +28,8 @@ export const refactorOfferTemplatesData = (
 
       // TODO: Update when have this fields
       waitingInterest: 0,
-      lendFee: item.lenderFee,
-      borrowFee: item.borrowerFee,
+      lendFee: item.lenderFee || 0,
+      borrowFee: item.borrowerFee || 0,
 
       bestOfferData: {
         lenderAddress: item.bestOffer?.lenderAddress,
