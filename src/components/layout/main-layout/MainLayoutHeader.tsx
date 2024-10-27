@@ -72,18 +72,20 @@ const MainLayoutHeader = () => {
             ) : (
               <Fragment />
             )}
-            <Link href={PathConstant.ROOT}>
-              <Image
-                priority
-                alt="EnsoFi logo"
-                className="w-[38px] sm:w-[116px] h-[38px]"
-                src={
-                  windowWidth > AppConstant.BREAK_POINTS.sm
-                    ? ImageAssets.EnsoTextLogoImage
-                    : ImageAssets.EnsoLogoImage
-                }
-              />
-            </Link>
+              <Link href={PathConstant.ROOT} className="flex items-center">
+                <Image
+                  priority
+                  alt="LendXChange logo"
+                  className="w-[38px] h-[38px]"
+                  src={
+                    windowWidth > AppConstant.BREAK_POINTS.sm
+                      ? ImageAssets.AptosLogoImage
+                      : ImageAssets.AptosLogoImage
+                  }
+                />
+                <p className="ml-2 text-xl font-semibold text-white">LendXChange</p>
+              </Link>
+
 
             {windowWidth >= AppConstant.BREAK_POINTS.lg ? (
               <DesktopNavigation />

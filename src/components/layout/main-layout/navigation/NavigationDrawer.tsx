@@ -14,10 +14,8 @@ import {
   DocumentIcon,
   HamburgerIcon,
 } from '@/components/icons';
-import { ImageAssets } from 'public';
 import Drawer from 'react-modern-drawer';
 import Link from 'next/link';
-import Image from 'next/image';
 import 'react-modern-drawer/dist/index.css';
 
 const NavigationDrawer = () => {
@@ -27,7 +25,6 @@ const NavigationDrawer = () => {
   const { windowWidth } = useWindowSize();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isShowResources, setIsShowResources] = useState(true);
 
   const handleToggleDrawer = () => {
     setIsOpen(!isOpen);
@@ -74,43 +71,6 @@ const NavigationDrawer = () => {
             >
               {getLabel('lLoan')}
             </NavigationItem>
-            <NavigationItem
-              className="space-between-root"
-              onClick={() => setIsShowResources(!isShowResources)}
-            >
-              <span>{getLabel('lResources')}</span>
-              <ArrowIcon
-                className={twJoin(isShowResources ? '-rotate-180' : '')}
-              />
-            </NavigationItem>
-
-            <>
-              {isShowResources ? (
-                <>
-                  <NavigationItem
-                    href={PathConstant.DOCUMENT_LINK}
-                    target="_blank"
-                  >
-                    <DocumentIcon /> {getLabel('lDocuments')}
-                  </NavigationItem>
-                  <NavigationItem
-                    href={PathConstant.TWITTER_URL}
-                    target="_blank"
-                  >
-                    <TwitterIcon /> {getLabel('lTwitter')}
-                  </NavigationItem>
-                  <NavigationItem
-                    href={PathConstant.SUPPORT_LINK}
-                    target="_blank"
-                  >
-                    <ChatIcon />
-                    {getLabel('lSupport')}
-                  </NavigationItem>
-                </>
-              ) : (
-                <Fragment />
-              )}
-            </>
           </div>
         </div>
       </Drawer>

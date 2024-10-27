@@ -99,7 +99,7 @@ const Home = () => {
           'flex flex-col items-center ',
         )}
       >
-        <IntroSwiper />
+        {/* <IntroSwiper /> */}
 
         <HomeContentWrapper className="z-[1]">
           <HomeContent />
