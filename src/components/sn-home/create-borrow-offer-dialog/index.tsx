@@ -19,14 +19,8 @@ import {
   SuiSupportedTokenEnum,
   SolanaSupportedTokenEnum,
   OfferDataDetailViewInterface,
-  SuiMovementSupportedTokenEnum,
   BlockchainTransactionStatusEnum,
 } from '@/models';
-
-import {
-  EclipseSupportedTokenEnum,
-  AptosMovementSupportedTokenEnum,
-} from '@/models/app.model';
 
 import {
   withCreateBorrowController,
@@ -68,11 +62,7 @@ const CreateBorrowOfferDialog: React.FC<CreateBorrowOfferDialogProps> = ({
 
   const [collateralValue, setCollateralValue] = useState(0);
   const defaultTokens = new Map<SupportedChainEnum, SupportTokenType>([
-    [SupportedChainEnum.Solana, SolanaSupportedTokenEnum.SOL],
-    [SupportedChainEnum.Eclipse, EclipseSupportedTokenEnum.ETH],
     [SupportedChainEnum.Sui, SuiSupportedTokenEnum.SUI],
-    [SupportedChainEnum.SuiMovement, SuiMovementSupportedTokenEnum.WBTC],
-    [SupportedChainEnum.AptosMovement, AptosMovementSupportedTokenEnum.APT],
   ]);
   const defaultToken =
     defaultTokens.get(selectedChain) || SolanaSupportedTokenEnum.SOL;
@@ -232,19 +222,6 @@ const CreateBorrowOfferDialog: React.FC<CreateBorrowOfferDialogProps> = ({
       clearInterval(priceFeedInterval);
     };
   }, [isOpen, selectedChain]);
-
-  useEffect(() => {
-    if (selectedChain === SupportedChainEnum.SuiMovement) {
-      setSelectedToken(SuiMovementSupportedTokenEnum.WBTC);
-    } else if (selectedChain === SupportedChainEnum.Solana) {
-      setSelectedToken(SolanaSupportedTokenEnum.SOL);
-    } else if (selectedChain === SupportedChainEnum.Sui) {
-      setSelectedToken(SuiSupportedTokenEnum.SUI);
-    } else if (selectedChain === SupportedChainEnum.AptosMovement) {
-      setSelectedToken(AptosMovementSupportedTokenEnum.APT);
-    }
-  }, [selectedChain]);
-
   return (
     <CommonDialog
       isOpen={isOpen}

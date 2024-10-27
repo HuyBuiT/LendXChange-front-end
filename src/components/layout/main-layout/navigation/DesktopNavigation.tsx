@@ -2,35 +2,19 @@
 
 import React, { ComponentPropsWithoutRef, Fragment } from 'react';
 import { PathConstant } from '@/const';
-import { useAppContext } from '@/context';
 import { usePathname } from 'next/navigation';
-import { CaretIcon } from '@/components/icons';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
 import Link from 'next/link';
-import ResourcesDropdown from './ResourcesDropdown';
 
 const DesktopNavigation = () => {
   const { t: getLabel } = useTranslation();
-  const { listCampaignByChain } = useAppContext();
 
   return (
     <div className={twJoin('ml-6', 'flex items-center')}>
       <DesktopLink href={PathConstant.ROOT}>{getLabel('lHome')}</DesktopLink>
       <DesktopLink href={PathConstant.LEND}>{getLabel('lLend')}</DesktopLink>
       <DesktopLink href={PathConstant.LOAN}>{getLabel('lLoan')}</DesktopLink>
-      <ResourcesDropdown>
-        <DesktopLink className="space-between-root">
-          {getLabel('lResources')}
-          <CaretIcon className="ml-2" />
-        </DesktopLink>
-      </ResourcesDropdown>
-
-      {listCampaignByChain.length > 0 ? (
-        <DesktopLink href={PathConstant.POINT_SYSTEM}>$ENS Reward</DesktopLink>
-      ) : (
-        <Fragment />
-      )}
     </div>
   );
 };

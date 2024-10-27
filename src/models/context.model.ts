@@ -29,15 +29,7 @@ import {
 } from './home.model';
 import {
   PaginationType,
-  NftBurnTypeEnum,
-  NftBurnDataType,
   DataListInterface,
-  TopDisplayInterface,
-  ReferAccountInterface,
-  CampaignInfoDataInterface,
-  UserBoostedActiveInterface,
-  CampaignInfoResponseInterface,
-  DailyPointAvailabilityInterface,
 } from '.';
 import {
   StatusDisplayLendContractEnum,
@@ -62,8 +54,6 @@ export interface AppContextInterface {
 
   availableAssets: Map<SupportTokenType, Asset>;
   handleGetPriceFeeds: (chain: SupportedChainEnum) => void;
-
-  listCampaignByChain: CampaignInfoResponseInterface[];
 }
 
 export interface AuthContextInterface {
@@ -226,47 +216,4 @@ export interface LendContextInterface {
     selectedType: StatusDisplayLendContractEnum,
   ) => void;
   handleGetDataStatistic: () => void;
-}
-
-export interface PointSystemContextInterface {
-  liveCampaign?: CampaignInfoResponseInterface;
-  selectedCampaign?: CampaignInfoResponseInterface;
-  setSelectedCampaign: React.Dispatch<
-    SetStateAction<CampaignInfoResponseInterface | undefined>
-  >;
-
-  referAccount: ReferAccountInterface;
-  userBoosted: UserBoostedActiveInterface[];
-  dailyPointAvailability: DailyPointAvailabilityInterface;
-  setDailyPointAvailability: React.Dispatch<
-    SetStateAction<DailyPointAvailabilityInterface>
-  >;
-
-  isOpenPopupPointSystem: boolean;
-  setIsOpenPopupPointSystem: React.Dispatch<SetStateAction<boolean>>;
-
-  handleGetTopSelectedCampaign: (campaignId: number) => void;
-  handleGetNftData: () => void;
-  handleGetDailyPoint: () => void;
-  handleGetSelectedCampaignInfo: (campaignId: number) => void;
-  handleGetUserBoosted: () => void;
-  handleGetLiveCampaignInfo: () => void;
-
-  nftBoostRate: number;
-  nftBurnData: Map<NftBurnTypeEnum, NftBurnDataType>;
-  totalBurnNft: number;
-
-  topEarnedReward: TopDisplayInterface[];
-  currentAccountRank: TopDisplayInterface;
-
-  selectedCampaignInfo: CampaignInfoDataInterface;
-  liveCampaignInfo: CampaignInfoDataInterface;
-
-  setSelectedCampaignInfo: React.Dispatch<
-    SetStateAction<CampaignInfoDataInterface>
-  >;
-
-  setLiveCampaignInfo: React.Dispatch<
-    SetStateAction<CampaignInfoDataInterface>
-  >;
 }

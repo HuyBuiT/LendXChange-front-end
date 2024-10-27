@@ -6,7 +6,6 @@ import { twJoin, twMerge } from 'tailwind-merge';
 import { AppConstant, PathConstant } from '@/const';
 import { useWindowSize } from '@/hooks/common-hooks';
 import { usePathname, useRouter } from 'next/navigation';
-import { useAppContext, useReferralContext } from '@/context';
 
 import {
   ChatIcon,
@@ -16,7 +15,6 @@ import {
   HamburgerIcon,
 } from '@/components/icons';
 import { ImageAssets } from 'public';
-import { StatusCampaignEnum } from '@/models';
 import Drawer from 'react-modern-drawer';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -27,27 +25,12 @@ const NavigationDrawer = () => {
   const { t: getLabel } = useTranslation();
 
   const { windowWidth } = useWindowSize();
-  const { listCampaignByChain } = useAppContext();
-  const { liveCampaignInfo, setSelectedCampaign } = useReferralContext();
 
   const [isOpen, setIsOpen] = useState(false);
   const [isShowResources, setIsShowResources] = useState(true);
 
   const handleToggleDrawer = () => {
     setIsOpen(!isOpen);
-  };
-
-  const handleGetLabelCampaign = (status: StatusCampaignEnum) => {
-    switch (status) {
-      case StatusCampaignEnum.Past:
-        return '( Finished )';
-      case StatusCampaignEnum.ComingSoon:
-        return '( Coming soon )';
-      case StatusCampaignEnum.Live:
-        return '';
-      default:
-        return '';
-    }
   };
 
   return (
@@ -128,60 +111,6 @@ const NavigationDrawer = () => {
                 <Fragment />
               )}
             </>
-
-            {listCampaignByChain.length > 0 ? (
-              <NavigationItem
-                href={PathConstant.POINT_SYSTEM}
-                onClick={handleToggleDrawer}
-              >
-                $ENS Reward
-              </NavigationItem>
-            ) : (
-              <Fragment />
-            )}
-          </div>
-
-          <div className="mb-5 mx-4 flex flex-col gap-y-7">
-            {listCampaignByChain.map((item) => (
-              <button
-                className={twJoin(
-                  'w-full',
-                  'py-3 px-4',
-                  'rounded-lg',
-                  'bg-white/10',
-                  'space-between-root',
-                )}
-                onClick={() => {
-                  setSelectedCampaign(item);
-                  setIsOpen(false);
-                  router.push(PathConstant.POINT_SYSTEM);
-                }}
-              >
-                <div className="flex flex-col gap-y-2">
-                  <p className="text-sm text-white/50">{`${
-                    item.name
-                  } ${handleGetLabelCampaign(item.status)}`}</p>
-                  {item.status === StatusCampaignEnum.Live && (
-                    <div className="flex items-center gap-x-2">
-                      <Image
-                        src={ImageAssets.EnsoCircleLogoImage}
-                        alt="EnsoCircleLogoImage"
-                        width={30}
-                        height={30}
-                      />
-                      <p className="text-[18px] text-purple1">
-                        {liveCampaignInfo.userPoint}
-                      </p>
-                    </div>
-                  )}
-                </div>
-                <ArrowIcon
-                  className="-rotate-90 text-neutral5"
-                  width={24}
-                  height={24}
-                />
-              </button>
-            ))}
           </div>
         </div>
       </Drawer>

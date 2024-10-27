@@ -113,8 +113,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     } else if (chain) {
       setSelectedChain(chain);
     } else {
-      localStorage.setItem(AppConstant.KEY_CHAIN, SupportedChainEnum.Solana);
-      setSelectedChain(SupportedChainEnum.Solana);
+      localStorage.setItem(AppConstant.KEY_CHAIN, SupportedChainEnum.Sui);
+      setSelectedChain(SupportedChainEnum.Sui);
     }
   }, [searchParam]);
 
@@ -135,7 +135,6 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         handleGetPriceFeeds,
 
         availableAssets,
-        listCampaignByChain,
       }}
     >
       {children}

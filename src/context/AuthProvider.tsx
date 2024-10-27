@@ -207,32 +207,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
     }
   };
 
-  const handleReconnectAfterSwitchWallet = async (
-    selectedWallet: SolanaWalletsEnum,
-  ) => {
-    if (
-      selectedChain === SupportedChainEnum.Solana ||
-      selectedChain === SupportedChainEnum.Eclipse
-    ) {
-      const currentWallet = localStorage.getItem(
-        AppConstant.SOLANA_PROVIDER,
-      ) as SolanaWalletsEnum;
-
-      if (currentWallet !== selectedWallet) return;
-
-      await handleDisconnect();
-
-      await handleConnectSol(selectedWallet);
-    }
-  };
-
-  const handleReconnectBitgetWallet = async () => {
-    await handleReconnectAfterSwitchWallet(SolanaWalletsEnum.Bitget);
-  };
-
-  const handleReconnectSalmonWallet = async () => {
-    await handleReconnectAfterSwitchWallet(SolanaWalletsEnum.Salmon);
-  };
 
   const phantomProvider = getPhantomProvider();
   const backpackProvider = getBackpackProvider();
@@ -241,90 +215,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
   const salmonProvider = getSalmonProvider();
 
   useEffect(() => {
-    if (
-      selectedChain === SupportedChainEnum.Solana ||
-      selectedChain === SupportedChainEnum.Eclipse
-    ) {
-      const storedChain = localStorage.getItem(AppConstant.KEY_CHAIN);
-      if (storedChain === selectedChain) {
-        handleReconnectSolWallet();
-      }
-    }
-  }, [selectedChain]);
-
-  useEffect(() => {
     if (!currentAccount?.address || !selectedChain) return;
-
-    if (selectedChain === SupportedChainEnum.SuiMovement) {
-      handleLoginSui(SupportedChainEnum.SuiMovement);
-      return;
-    }
 
     if (selectedChain === SupportedChainEnum.Sui) {
       handleLoginSui(SupportedChainEnum.Sui);
       return;
     }
   }, [currentAccount?.address, selectedChain]);
-
-  useEffect(() => {
-    if (
-      !account?.address ||
-      !selectedChain ||
-      selectedChain !== SupportedChainEnum.AptosMovement
-    )
-      return;
-
-    handleLoginAptosMovement(SupportedChainEnum.AptosMovement);
-  }, [account?.address, selectedChain, wallet]);
-
-  useEffect(() => {
-    phantomProvider?.on('accountChanged', async () => {
-      await handleReconnectAfterSwitchWallet(SolanaWalletsEnum.Phantom);
-    });
-
-    return () => {
-      phantomProvider?.off('accountChanged', async () => {
-        await handleReconnectAfterSwitchWallet(SolanaWalletsEnum.Phantom);
-      });
-    };
-  }, [phantomProvider]);
-
-  useEffect(() => {
-    backpackProvider?.on('accountChanged', async () => {
-      await handleReconnectAfterSwitchWallet(SolanaWalletsEnum.Backpack);
-    });
-
-    return () => {
-      backpackProvider?.off('accountChanged', async () => {
-        await handleReconnectAfterSwitchWallet(SolanaWalletsEnum.Backpack);
-      });
-    };
-  }, [backpackProvider]);
-
-  useEffect(() => {
-    solflareProvider?.on('disconnect', async () => {
-      await handleReconnectAfterSwitchWallet(SolanaWalletsEnum.Solflare);
-    });
-
-    return () => {
-      solflareProvider?.off('disconnect', async () => {
-        await handleReconnectAfterSwitchWallet(SolanaWalletsEnum.Solflare);
-      });
-    };
-  }, [solflareProvider]);
-
-  useEffect(() => {
-    if (
-      !connectedChainAddress ||
-      selectedChain === SupportedChainEnum.SuiMovement
-    )
-      return;
-    handleReconnectBitgetWallet();
-  }, [bitgetProvider]);
-
-  useEffect(() => {
-    handleReconnectSalmonWallet();
-  }, [salmonProvider]);
 
   useEffect(() => {
     if (!connectedChainAddress) return;

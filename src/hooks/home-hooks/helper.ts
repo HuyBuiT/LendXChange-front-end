@@ -16,9 +16,9 @@ export const refactorOfferTemplatesData = (
   const refactoredData = offerTemplates.map((item) => {
     return {
       id: item.offerTemplateId,
-      amount: Number(item?.amount / Math.pow(10, item.asset.decimals)),
+      amount: Number(item?.amount / Math.pow(10, 6)),
       volume: item?.volume7d
-        ? Number(item?.volume7d / Math.pow(10, item.asset.decimals))
+        ? Number(item?.volume7d / Math.pow(10, 6))
         : 0,
       durations: Math.floor(item.duration / (3600 * 24)),
       chain: item.network,

@@ -16,7 +16,6 @@ export const getOfferTemplatesService = async (
   selectedChain: SupportedChainEnum,
 ) => {
   const params = {
-    network: selectedChain,
     sorts: {
       'offerTemplate.amount': 'ASC',
     },

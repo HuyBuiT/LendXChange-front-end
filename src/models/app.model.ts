@@ -1,11 +1,5 @@
 export enum SupportedChainEnum {
   Sui = 'SUI',
-  SuiMovement = 'SUI_MOVEMENT',
-  Monad = 'MONAD',
-  Solana = 'SOLANA',
-  Injective = 'INJECTIVE',
-  AptosMovement = 'APTOS_MOVEMENT',
-  Eclipse = 'ECLIPSE',
 }
 
 export enum NetworkModeEnum {
@@ -23,27 +17,9 @@ export enum SolanaSupportedTokenEnum {
   INF = 'INF',
 }
 
-export enum EclipseSupportedTokenEnum {
-  USDC = 'USDC',
-  ETH = 'ETH',
-}
-
-export enum SuiMovementSupportedTokenEnum {
-  USDC = 'USDC',
-  WBTC = 'WBTC',
-  WETH = 'WETH',
-}
-
 export enum SuiSupportedTokenEnum {
   USDC = 'USDC',
   SUI = 'SUI',
-}
-
-export enum AptosMovementSupportedTokenEnum {
-  USDC = 'USDC',
-  WBTC = 'WBTC',
-  WETH = 'WETH',
-  APT = 'APT',
 }
 
 export enum ConnectNotificationStatusEnum {
@@ -96,10 +72,7 @@ export enum EventName {
 
 export type SupportTokenType =
   | SolanaSupportedTokenEnum
-  | EclipseSupportedTokenEnum
-  | SuiMovementSupportedTokenEnum
-  | SuiSupportedTokenEnum
-  | AptosMovementSupportedTokenEnum;
+  | SuiSupportedTokenEnum;
 
 export interface OfferDataDetailViewInterface {
   id: string;

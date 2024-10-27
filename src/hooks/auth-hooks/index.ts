@@ -9,9 +9,6 @@ import useMovementAptosAuthHook from './aptos-movement-auth-hooks';
 
 const useAuthHook = () => {
   const { handleSignSuiMessage, handleDisconnectSui } = useSuiAuthHook();
-  const { handleSignSolanaMessage, handleDisconnectSol } = useSolanaAuthHooks();
-  const { handleSignMovementAptosMessage, handleDisconnectMovementAptos } =
-    useMovementAptosAuthHook();
 
   const handleGetWalletNonce = async (walletAddress: string) => {
     if (!walletAddress) return '';
@@ -45,15 +42,6 @@ const useAuthHook = () => {
     walletType?: string,
     publicKey?: string,
   ) => {
-    const cloneWalletAddress =
-      selectedChain === SupportedChainEnum.AptosMovement
-        ? publicKey
-        : walletAddress;
-
-    if (!cloneWalletAddress || !walletAddress) {
-      handleLogout(selectedChain);
-      return;
-    }
 
     const accessToken = Cookies.get(AppConstant.KEY_TOKEN);
 
@@ -63,17 +51,7 @@ const useAuthHook = () => {
 
     let signature;
 
-    if (
-      selectedChain === SupportedChainEnum.Solana ||
-      selectedChain === SupportedChainEnum.Eclipse
-    ) {
-      const selectedWallet = walletType as SolanaWalletsEnum;
-      signature = await handleSignSolanaMessage(nonce, selectedWallet);
-    } else if (selectedChain === SupportedChainEnum.Sui) {
       signature = await handleSignSuiMessage(nonce);
-    } else if (selectedChain === SupportedChainEnum.AptosMovement) {
-      signature = await handleSignMovementAptosMessage(nonce);
-    }
 
     if (!signature) {
       handleLogout(selectedChain);
@@ -81,7 +59,7 @@ const useAuthHook = () => {
     }
 
     const newAccessToken = await handleGetAccessToken(
-      cloneWalletAddress,
+      walletAddress,
       signature,
       selectedChain,
       walletType,
@@ -103,14 +81,7 @@ const useAuthHook = () => {
       await AppService.postLogout();
       Cookies.remove(AppConstant.KEY_TOKEN);
     }
-
-    if (selectedChain === SupportedChainEnum.Solana) {
-      await handleDisconnectSol();
-    } else if (selectedChain === SupportedChainEnum.Sui) {
       await handleDisconnectSui();
-    } else if (selectedChain === SupportedChainEnum.AptosMovement) {
-      await handleDisconnectMovementAptos();
-    }
   };
 
   return {
