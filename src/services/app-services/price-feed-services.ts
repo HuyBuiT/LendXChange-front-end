@@ -22,7 +22,7 @@ export const getSolTokensPriceFeedService = async (
   const url = ApiConstant.GET_LATEST_PRICE_FEEDS + queryString;
 
   const response: ApiResponse<PriceFeedsResponseInterface[]> =
-    await createPriceFeedApi(assets[0].priceFeedProvider.url + '/api').get(url);
+    await createPriceFeedApi('https://hermes-beta.pyth.network' + '/api').get(url);
 
   if (!response.status) return undefined;
 
