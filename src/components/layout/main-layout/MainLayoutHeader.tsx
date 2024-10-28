@@ -79,8 +79,8 @@ const MainLayoutHeader = () => {
                   className="w-[38px] h-[38px]"
                   src={
                     windowWidth > AppConstant.BREAK_POINTS.sm
-                      ? ImageAssets.AptosLogoImage
-                      : ImageAssets.AptosLogoImage
+                      ? ImageAssets.EnsoLogoImage
+                      : ImageAssets.EnsoLogoImage
                   }
                 />
                 <p className="ml-2 text-xl font-semibold text-white">LendXChange</p>

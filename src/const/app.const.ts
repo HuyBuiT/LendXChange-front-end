@@ -67,49 +67,49 @@ export const APTOS_MOVEMENT_COIN_STORE = '0x1::coin::CoinStore';
 export const APTOS_MOVEMENT_COIN_TYPE = '0x1::aptos_coin::AptosCoin';
 
 export const META_DATA_HOME_DEFAULT = {
-  title: 'Welcome to EnsoFi: Lend & Borrow with Certainty',
+  title: 'Welcome to LendXChange: Lend & Borrow with Certainty',
   description:
-    'Welcome to EnsoFi. Explore how EnsoFi revolutionizes lending and borrowing with fixed interest rates across any blockchain',
+    'Welcome to LendXChange. Explore how LendXChange revolutionizes lending and borrowing with fixed interest rates across any blockchain',
   url: process.env.NEXT_PUBLIC_DDAP_URL,
-  siteName: 'Ensofi',
+  siteName: 'LendXChange',
   urlImage:
-    'https://prd-ensofi-public-992382835581.s3.ap-southeast-1.amazonaws.com/Blink/Resource+page.png',
+    'https://prd-LendXChange-public-992382835581.s3.ap-southeast-1.amazonaws.com/Blink/Resource+page.png',
 };
 
 export const META_DATA_LEND_DEFAULT = {
   title:
-    'Lend with EnsoFi: Fixed Interest Rates and Seamless Multi-Chain Transactions',
+    'Lend with LendXChange: Fixed Interest Rates and Peer to Peer',
   description:
-    'Empower your financial growth by lending your assets on EnsoFi. Enjoy fixed interest rates and seamless transactions across multiple chains, all from one platform',
+    'Empower your financial growth by lending your assets on LendXChange. Enjoy fixed interest rates and seamless transactions across SUI network, all from one platform',
   url: `${process.env.NEXT_PUBLIC_DDAP_URL}/lend`,
-  siteName: 'Ensofi',
+  siteName: 'LendXChange',
   urlImage:
-    'https://prd-ensofi-public-992382835581.s3.ap-southeast-1.amazonaws.com/Blink/Resource+page.png',
+    'https://prd-LendXChange-public-992382835581.s3.ap-southeast-1.amazonaws.com/Blink/Resource+page.png',
 };
 
 export const META_DATA_LOAN_DEFAULT = {
   title:
-    'Lend with EnsoFi: Fixed Interest Rates and Seamless Multi-Chain Transactions',
+    'Lend with LendXChange: Fixed Interest Rates and Peer to Peer',
   description:
-    'Empower your financial growth by lending your assets on EnsoFi. Enjoy fixed interest rates and seamless transactions across multiple chains, all from one platform',
+    'Empower your financial growth by lending your assets on LendXChange. Enjoy fixed interest rates and seamless transactions across SUI network, all from one platform',
   url: `${process.env.NEXT_PUBLIC_DDAP_URL}/lend`,
-  siteName: 'Ensofi',
+  siteName: 'LendXChange',
   urlImage:
-    'https://prd-ensofi-public-992382835581.s3.ap-southeast-1.amazonaws.com/Blink/Resource+page.png',
+    'https://prd-LendXChange-public-992382835581.s3.ap-southeast-1.amazonaws.com/Blink/Resource+page.png',
 };
 
 export const META_DATA_REWARD_SYSTEM_DEFAULT = {
   title:
-    'Lend with EnsoFi: Fixed Interest Rates and Seamless Multi-Chain Transactions',
+    'Lend with LendXChange: Fixed Interest Rates and Seamless Multi-Chain Transactions',
   description:
-    'Empower your financial growth by lending your assets on EnsoFi. Enjoy fixed interest rates and seamless transactions across multiple chains, all from one platform',
+    'Empower your financial growth by lending your assets on LendXChange. Enjoy fixed interest rates and seamless transactions across SUI network, all from one platform',
   url: `${process.env.NEXT_PUBLIC_DDAP_URL}/lend`,
-  siteName: 'Ensofi',
+  siteName: 'LendXChange',
   urlImage:
-    'https://prd-ensofi-public-992382835581.s3.ap-southeast-1.amazonaws.com/Blink/Resource+page.png',
+    'https://prd-LendXChange-public-992382835581.s3.ap-southeast-1.amazonaws.com/Blink/Resource+page.png',
 };
 
-export const TEXT_SHARE_CURRENT_POINT = `🚀 Just snagged my $ENS Reward from @ensofi_xyz! 🌟\n
+export const TEXT_SHARE_CURRENT_POINT = `🚀 Just snagged my $ENS Reward from @LendXChange_xyz! 🌟\n
 Want yours? Head over to __url__ and claim it today! 💰✨\n\n`;
 export const KAMINO_MAIN_MARKET_ADDRESS =
   '7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF';
@@ -127,7 +127,7 @@ export const ActiveNetwork = {
   ECLIPSE: false,
 };
 
-export const TITLE_SHARE_REFER_CODE = `Lend and borrow with fixed interest rate? @Ensofi_xyz offers just that, giving you the certainty you need! \n\nSeason 2 Reward is here with 2,000,000 $ENS and exciting benefits to reward users for productive usage.\n\n`;
+export const TITLE_SHARE_REFER_CODE = `Lend and borrow with fixed interest rate? @LendXChange_xyz offers just that, giving you the certainty you need! \n\nSeason 2 Reward is here with 2,000,000 $ENS and exciting benefits to reward users for productive usage.\n\n`;
 
 export const PERSONAL_KIOSK_PACKAGE =
   '0x0cb4bcc0560340eb1a1b929cabe56b33fc6449820ec8c1980d69bb98b649b802';
