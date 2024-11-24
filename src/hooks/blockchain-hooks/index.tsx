@@ -31,33 +31,10 @@ const useTransaction = () => {
     try {
       let resTransaction = { txHash: '', messageError: '' };
 
-      if (selectedChain === SupportedChainEnum.Solana) {
-        resTransaction = await new SolBlockchainService()?.sendTransaction({
-          transactionData: data,
-          walletAddress,
-          getLabel,
-        });
-      }
-
-      if (selectedChain === SupportedChainEnum.Eclipse) {
-        resTransaction = await new EclipseBlockchainService().sendTransaction({
-          transactionData: data,
-          walletAddress,
-          getLabel,
-        });
-      }
-
       if (
-        selectedChain === SupportedChainEnum.SuiMovement ||
         selectedChain === SupportedChainEnum.Sui
       ) {
         resTransaction = (await handleSendSuiTransaction(
-          data,
-        )) as ResSendTransactionInterface;
-      }
-
-      if (selectedChain === SupportedChainEnum.AptosMovement) {
-        resTransaction = (await handleSendAptosMovementTransaction(
           data,
         )) as ResSendTransactionInterface;
       }

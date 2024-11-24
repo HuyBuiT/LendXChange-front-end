@@ -14,7 +14,6 @@ import { DropdownMenuTriggerProps } from '@radix-ui/react-dropdown-menu';
 
 import TokenListDropdown from './TokenListDropdown';
 import TokenListButton from './TokenListButton';
-import { EclipseSupportedTokenEnum } from '@/models/app.model';
 
 const StartAdornment: React.FC<StartAdornmentProps> = ({
   token,
@@ -37,26 +36,14 @@ const StartAdornment: React.FC<StartAdornmentProps> = ({
   };
 
   useEffect(() => {
-    if (selectedChain === SupportedChainEnum.Solana) {
-      setSelectedTokenByChain(SolanaSupportedTokenEnum.SOL);
-    } else if (selectedChain === SupportedChainEnum.Eclipse) {
-      setSelectedTokenByChain(EclipseSupportedTokenEnum.ETH);
-    } else if (selectedChain === SupportedChainEnum.SuiMovement) {
-      setSelectedTokenByChain(token ?? SuiMovementSupportedTokenEnum.WBTC);
-    } else if (selectedChain === SupportedChainEnum.Sui) {
       setSelectedTokenByChain(token ?? SuiSupportedTokenEnum.SUI);
-    } else if (selectedChain === SupportedChainEnum.AptosMovement) {
-      setSelectedTokenByChain(token ?? AptosMovementSupportedTokenEnum.APT);
-    } else {
-      setSelectedTokenByChain(SolanaSupportedTokenEnum.SOL);
-    }
   }, [selectedChain, token]);
 
   return (
     <div className={twMerge('flex items-center', className)} {...otherProps}>
       <TokenListDropdown
         baseToken={
-          SuiMovementSupportedTokenEnum.USDC || SolanaSupportedTokenEnum.USDC
+          SuiSupportedTokenEnum.USDC || SolanaSupportedTokenEnum.USDC
         }
         triggerProps={triggerProps}
         selectedChain={selectedChain}

@@ -9,7 +9,6 @@ import {
   SolanaSupportedTokenEnum,
   SupportedTokenSuiIndexEnum,
   SuiMovementSupportedTokenEnum,
-  AptosMovementSupportedTokenEnum,
   SupportedTokenSuiMovementIndexEnum,
 } from '@/models';
 import { ImageAssets } from 'public';
@@ -19,7 +18,6 @@ import { ApiResponse } from 'apisauce';
 import { isEmpty } from 'lodash';
 import {
   Asset,
-  EclipseSupportedTokenEnum,
   NetworkModeEnum,
 } from '@/models/app.model';
 
@@ -92,20 +90,8 @@ export const deepEqual = (value1: any, value2: any) => {
 
 export const getChainImageSrcByValue = (value: SupportedChainEnum) => {
   switch (value) {
-    case SupportedChainEnum.Solana:
-      return ImageAssets.SolTokenImage;
-    case SupportedChainEnum.SuiMovement:
-      return ImageAssets.MovementLogoImage;
     case SupportedChainEnum.Sui:
       return ImageAssets.SuiLogoImage;
-    case SupportedChainEnum.Injective:
-      return ImageAssets.InjectiveLogoImage;
-    case SupportedChainEnum.Monad:
-      return ImageAssets.MonadLogoImage;
-    case SupportedChainEnum.AptosMovement:
-      return ImageAssets.AptosLogoImage;
-    case SupportedChainEnum.Eclipse:
-      return ImageAssets.EclipseLogoImage;
     default:
       return '';
   }
@@ -125,24 +111,8 @@ export const getTokenImageSrcByValue = (value: SupportTokenType) => {
       return ImageAssets.JitoSolTokenImage;
     case SolanaSupportedTokenEnum.INF:
       return ImageAssets.InfTokenImage;
-
-    case SuiMovementSupportedTokenEnum.WBTC:
-      return ImageAssets.WbtcTokenImage;
-    case SuiMovementSupportedTokenEnum.WETH:
-      return ImageAssets.WethTokenImage;
-
     case SuiSupportedTokenEnum.SUI:
       return ImageAssets.SuiLogoImage;
-
-    case EclipseSupportedTokenEnum.ETH:
-      return ImageAssets.EthTokenImage;
-
-    case AptosMovementSupportedTokenEnum.WBTC:
-      return ImageAssets.WbtcTokenImage;
-    case AptosMovementSupportedTokenEnum.WETH:
-      return ImageAssets.WethTokenImage;
-    case AptosMovementSupportedTokenEnum.APT:
-      return ImageAssets.AptosLogoImage;
 
     default:
       return '';
@@ -177,23 +147,6 @@ export const getTransactionHashInfoLink = (
   transactionHash: string,
 ) => {
   switch (chain) {
-    case SupportedChainEnum.Solana:
-      const solanaParams =
-        process.env.NETWORK_MODE !== NetworkModeEnum.MAIN_NET
-          ? `?cluster=${process.env.NETWORK_MODE}`
-          : '';
-      return `${process.env.NEXT_PUBLIC_SOLS_EXPLORER_URL}/tx/${transactionHash}/${solanaParams}`;
-
-    case SupportedChainEnum.Eclipse:
-      const eclipseParams =
-        process.env.NETWORK_MODE !== NetworkModeEnum.MAIN_NET
-          ? `?cluster=${process.env.NETWORK_MODE}`
-          : '';
-      return `${process.env.NEXT_PUBLIC_ECLIPSE_EXPLORER_URL}/tx/${transactionHash}/${eclipseParams}`;
-
-    case SupportedChainEnum.SuiMovement:
-      return `${process.env.NEXT_PUBLIC_SUI_MOVEMENT_EXPLORER_URL}/object/${transactionHash}?network=baku-devnet`;
-
     case SupportedChainEnum.Sui:
       return `${
         process.env.NETWORK_MODE === NetworkModeEnum.MAIN_NET
@@ -203,9 +156,6 @@ export const getTransactionHashInfoLink = (
               NetworkModeEnum.TEST_NET,
             )
       }/txblock/${transactionHash}`;
-
-    case SupportedChainEnum.AptosMovement:
-      return `${process.env.NEXT_PUBLIC_APTOS_MOVEMENT_EXPLORER_URL}/${transactionHash}?network=${process.env.NETWORK_MODE}`;
 
     default:
       return '';
@@ -301,19 +251,6 @@ export const getPriceByChainAndSymbol = ({
   priceMap: Map<SupportTokenType, { price: number; priceFeedId: string }>;
 }) => {
   if (!priceMap.size) return 0;
-
-  if (chain === SupportedChainEnum.Solana) {
-    return priceMap.get(token as SolanaSupportedTokenEnum)?.price || 0;
-  }
-
-  if (chain === SupportedChainEnum.Eclipse) {
-    return priceMap.get(token as EclipseSupportedTokenEnum)?.price || 0;
-  }
-
-  if (chain === SupportedChainEnum.SuiMovement) {
-    return priceMap.get(token as SuiMovementSupportedTokenEnum)?.price || 0;
-  }
-
   if (chain === SupportedChainEnum.Sui) {
     return priceMap.get(token as SuiSupportedTokenEnum)?.price || 0;
   }
@@ -343,19 +280,6 @@ export const getDecimalToken = (
         return TokenDecimalsEnum.USDC;
       case SuiSupportedTokenEnum.SUI:
         return TokenDecimalsEnum.SUI;
-      default:
-        return TokenDecimalsEnum.USDC;
-    }
-  }
-
-  if (network === SupportedChainEnum.SuiMovement) {
-    switch (symbol) {
-      case SuiMovementSupportedTokenEnum.USDC:
-        return TokenDecimalsEnum.USDC;
-      case SuiMovementSupportedTokenEnum.WBTC:
-        return TokenDecimalsEnum.WBTC;
-      case SuiMovementSupportedTokenEnum.WETH:
-        return TokenDecimalsEnum.WETH;
       default:
         return TokenDecimalsEnum.USDC;
     }
