@@ -67,7 +67,7 @@ export const APTOS_MOVEMENT_COIN_STORE = '0x1::coin::CoinStore';
 export const APTOS_MOVEMENT_COIN_TYPE = '0x1::aptos_coin::AptosCoin';
 
 export const META_DATA_HOME_DEFAULT = {
-  title: 'Welcome to LendXChange: Lend & Borrow with Certainty',
+  title: 'Welcome to LendXChange: Lend & Borrow with Confidence',
   description:
     'Welcome to LendXChange. Explore how LendXChange revolutionizes lending and borrowing with fixed interest rates across any blockchain',
   url: process.env.NEXT_PUBLIC_DDAP_URL,
