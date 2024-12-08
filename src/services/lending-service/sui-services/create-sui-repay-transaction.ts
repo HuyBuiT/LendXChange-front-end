@@ -13,6 +13,7 @@ export const createSuiRepayTransaction = async (
   const { loanOfferId, repayCoin, lendAsset, collateralAsset, walletAddress } =
     createRepayLoanOfferTransactionData;
 
+  console.log('repay', repayCoin);
   if (!loanOfferId || !repayCoin) return;
   const target =
     `${process.env.SUI_UPGRADED_PACKAGE}::loan::repay` as MoveCallTargetType;

@@ -10,12 +10,8 @@ import {
 } from '@/models';
 import { web3 } from '@project-serum/anchor';
 import { SuiLendingService } from './sui-services';
-import { SolanaLendingService } from './solana-services';
-import { EclipseLendingService } from './eclipse-services';
 import { TransactionBlock } from '@mysten/sui.js/transactions';
-import { SuiMovementLendingService } from './sui-movement-service';
 import { InputGenerateTransactionPayloadData } from '@aptos-labs/ts-sdk';
-import { AptosMovementLendingService } from './aptos-movement-service';
 
 export interface LendingServicesInterface {
   createLendTransaction(
@@ -51,16 +47,8 @@ export type ResCreateTransactionType =
 
 export const getLendingServiceByChain = (chain: SupportedChainEnum) => {
   switch (chain) {
-    case SupportedChainEnum.Solana:
-      return new SolanaLendingService();
-    case SupportedChainEnum.Eclipse:
-      return new EclipseLendingService();
     case SupportedChainEnum.Sui:
       return new SuiLendingService();
-    case SupportedChainEnum.SuiMovement:
-      return new SuiMovementLendingService();
-    case SupportedChainEnum.AptosMovement:
-      return new AptosMovementLendingService();
     default:
       return null;
   }

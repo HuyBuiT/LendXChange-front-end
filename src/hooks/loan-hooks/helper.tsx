@@ -6,7 +6,7 @@ import {
   LoanContractViewInterface,
 } from '@/models';
 import { CommonUtils, DateUtils } from '@/utils';
-import { Asset, EventName } from '@/models/app.model';
+import { Asset, EventName, SuiSupportedTokenEnum, SupportedTokenSuiIndexEnum } from '@/models/app.model';
 
 export const refactorContractList = (
   data: ContractResponseInterface[],
@@ -14,10 +14,10 @@ export const refactorContractList = (
 ) => {
   if (!data.length) return [];
 
+  console.log('data', data);
   const refactorData = data.map((item) => {
-    const decimal = availableAssets.get(item.symbol)?.decimals || 0;
-    const collateralsDecimal =
-      availableAssets.get(item.collaterals[0].symbol)?.decimals || 0;
+    const decimal = 6;
+    const collateralsDecimal = 9;
 
     const duration = DateUtils.convertSecondsToDayHourMinute(
       new Date(item.endDate).getTime() / 1000 -
@@ -26,39 +26,27 @@ export const refactorContractList = (
 
     const amount = item.amount / Math.pow(10, decimal);
 
-    const borrowInterestValue =
-      item.network === SupportedChainEnum.Solana ||
-      item.network === SupportedChainEnum.Eclipse
-        ? CommonUtils.calculateInterestValue(
-            amount,
-            item.interestRate,
-            duration,
-            1,
-          )
-        : getDecimalAmount(
+    const borrowInterestValue = getDecimalAmount(
             CommonUtils.calculateInterestValue(
               amount,
               item.interestRate,
               duration,
               1,
             ),
-            item.network,
-            item.symbol,
+            SupportedChainEnum.Sui,
+            SuiSupportedTokenEnum.USDC,
           );
 
+    console.log('borrowValue', borrowInterestValue);
     const collateral = {
       amount: item.collaterals[0]?.amount
         ? item.collaterals[0].amount / Math.pow(10, collateralsDecimal)
         : 0,
-      token: item.collaterals[0]?.symbol,
+      token: SuiSupportedTokenEnum.SUI,
     };
 
     const borrowerFeePercent = item.borrowerFee / 100;
-    const borrowFeeValue =
-      item.network === SupportedChainEnum.Solana ||
-      item.network === SupportedChainEnum.Eclipse
-        ? borrowInterestValue * borrowerFeePercent
-        : getDecimalAmount(
+    const borrowFeeValue = getDecimalAmount(
             borrowInterestValue * borrowerFeePercent,
             item.network,
             item.symbol,
@@ -94,8 +82,8 @@ export const refactorContractList = (
     const liquidatedHeathRatio = (liquidatePrice * collateral.amount) / amount;
 
     return {
-      token: item.symbol,
-      chain: item.network?.toUpperCase(),
+      token: SuiSupportedTokenEnum.USDC,
+      chain: SupportedChainEnum.Sui,
       tierId: item.templateId,
       loanOfferId: item.loanOfferId,
       lendOfferId: item.lendOfferId,
@@ -120,7 +108,7 @@ export const refactorContractList = (
         amount: item.collaterals[0]?.amount
           ? item.collaterals[0].amount / Math.pow(10, collateralsDecimal)
           : 0,
-        token: item.collaterals[0]?.symbol,
+        token: SuiSupportedTokenEnum.SUI,
       },
 
       repaidData: {
@@ -146,7 +134,7 @@ export const refactorContractList = (
     };
   });
 
-  return refactorData as LoanContractViewInterface[];
+  return refactorData as unknown as LoanContractViewInterface[];
 };
 
 const getDecimalAmount = (

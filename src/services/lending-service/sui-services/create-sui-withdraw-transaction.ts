@@ -18,13 +18,14 @@ export const createSuiWithdrawTransaction = async (
   const target =
     `${process.env.SUI_UPGRADED_PACKAGE}::loan::withdraw_collateral_loan_offer` as MoveCallTargetType;
 
-  const coinType = lendAsset.tokenAddress;
+  const coinType ="0x934eccc71e031fffb7d5fb597e2058a1be267320e9355961c593590f810d50e3::usdc::USDC";
+
   const collateralType = collateralAsset.tokenAddress;
 
   const version = process.env.SUI_VERSION || '';
   const contractState = process.env.SUI_STATE || '';
   const contractConfig = process.env.SUI_CONFIGURATION || '';
-  const lendMetadata = process.env.SUI_LEND_COIN_METADATA || '';
+  const lendMetadata = '0x8adc4a98b8ab67bc3948c7a62233b666c47a5851245a1092888b363c5ca18b44';
 
   const collateralMetadata =
     CommonUtils.getSuiEnvByToken(
@@ -32,7 +33,7 @@ export const createSuiWithdrawTransaction = async (
       process.env.SUI_COLLATERAL_COIN_METADATA,
     ) || '';
 
-  const basePriceFeedUrl = lendAsset.priceFeedProvider.url;
+  const basePriceFeedUrl = 'https://hermes-beta.pyth.network';
 
   const [priceObjectLending, priceObjectCollateral] = await Promise.all([
     handleGetPricesObject(lendAsset.priceFeedId, basePriceFeedUrl),

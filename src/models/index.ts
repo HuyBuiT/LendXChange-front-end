@@ -30,7 +30,6 @@ import {
   HomeContextInterface,
   LendContextInterface,
   ErrorContextInterface,
-  PointSystemContextInterface,
   NotificationContextInterface,
 } from './context.model';
 
@@ -41,7 +40,6 @@ export type {
   HomeContextInterface,
   LendContextInterface,
   ErrorContextInterface,
-  PointSystemContextInterface,
   NotificationContextInterface,
 };
 
@@ -83,8 +81,6 @@ import {
   SolanaSupportedTokenEnum,
   SupportedTokenSuiIndexEnum,
   ConnectNotificationStatusEnum,
-  SuiMovementSupportedTokenEnum,
-  AptosMovementSupportedTokenEnum,
   SupportedTokenSuiMovementIndexEnum,
 } from './app.model';
 
@@ -102,8 +98,6 @@ export {
   SolanaSupportedTokenEnum,
   SupportedTokenSuiIndexEnum,
   ConnectNotificationStatusEnum,
-  SuiMovementSupportedTokenEnum,
-  AptosMovementSupportedTokenEnum,
   SupportedTokenSuiMovementIndexEnum,
 };
 
