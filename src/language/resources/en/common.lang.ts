@@ -10,6 +10,7 @@ export default {
   lHome: 'Home',
   lLend: 'Lend',
   lLoan: 'Loan',
+  lPortfolio: 'Portfolio',
   lResources: 'Resources',
   lDocuments: 'Documents',
   lTwitter: 'Twitter',

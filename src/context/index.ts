@@ -7,6 +7,7 @@ import { ErrorProvider, useErrorContext } from './ErrorProvider';
 import { SocketProvider, useSocketContext } from './SocketProvider';
 import SuiProvider from './SuiProvider';
 import MovementAptosProvider from './MovementAptosProvider';
+import { PortfolioProvider, usePortfolioContext } from './PortfofioProvider';
 
 export {
   AppProvider,
@@ -25,4 +26,6 @@ export {
   useSocketContext,
   SuiProvider,
   MovementAptosProvider,
+  PortfolioProvider,
+  usePortfolioContext
 };

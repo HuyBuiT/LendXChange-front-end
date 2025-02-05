@@ -132,3 +132,13 @@ export const TITLE_SHARE_REFER_CODE = `Lend and borrow with fixed interest rate?
 export const PERSONAL_KIOSK_PACKAGE =
   '0x0cb4bcc0560340eb1a1b929cabe56b33fc6449820ec8c1980d69bb98b649b802';
 export const KIOSK_TAKE_FUNC = '0x2::kiosk::take';
+
+export const META_DATA_PORTFOLIO_DEFAULT = {
+  title: 'Track and Manage Your Portfolio on LendXChange',
+  description:
+    'Get a comprehensive view of your DeFi assets and positions, monitor performance, and make informed decisions, all in one place with LendXChange',
+  url: `${process.env.NEXT_PUBLIC_DDAP_URL}/portfolio`,
+  siteName: 'LendXChange',
+  urlImage:
+    'https://ensofi-prod.s3.ap-southeast-1.amazonaws.com/metadata/ensofi.png',
+};

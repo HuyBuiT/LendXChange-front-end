@@ -118,3 +118,44 @@ export interface BorrowTransactionInterface {
   tierId: string;
   collateralSymbol?: SupportTokenType;
 }
+
+export interface ResSuppliedAssetInterface {
+  lendSupplied: LendSuppliedAssetInterface[];
+  collateralSupplied: CollateralSuppliedAssetInterface[];
+}
+
+export interface LendSuppliedAssetInterface {
+  asset: Asset;
+  lendSuppliedAmount: number;
+  interestEarnedAmount: number;
+  activeContractPerAsset: number;
+  lendSuppliedValue: number;
+  interestEarnedValue: number;
+}
+
+export interface CollateralSuppliedAssetInterface {
+  asset: Asset;
+  collateralSuppliedAmount: number;
+  collateralSuppliedValue: number;
+}
+
+export interface ResLoanBorrowedInterface {
+  asset: Asset;
+  borrowedAmount: number;
+  interestOwedAmount: number;
+  activeContractPerAsset: number;
+}
+
+export interface SuppliedAssetInterface {
+  lendSupplied: LendSuppliedAssetInterface[];
+  collateralSupplied: CollateralSuppliedAssetInterface[];
+}
+
+export interface LoanBorrowedInterface {
+  asset: Asset;
+  borrowedValue: number;
+  borrowedAmount: number;
+  interestOwedValue: number;
+  interestOwedAmount: number;
+  activeContractPerAsset: number;
+}

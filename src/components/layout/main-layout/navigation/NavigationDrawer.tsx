@@ -71,6 +71,12 @@ const NavigationDrawer = () => {
             >
               {getLabel('lLoan')}
             </NavigationItem>
+            <NavigationItem
+              href={PathConstant.PORTFOLIO}
+              onClick={handleToggleDrawer}
+            >
+              {getLabel('lPortfolio')}
+            </NavigationItem>
           </div>
         </div>
       </Drawer>

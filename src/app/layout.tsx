@@ -15,6 +15,7 @@ import {
   LendProvider,
   ErrorProvider,
   SocketProvider,
+  PortfolioProvider,
   MovementAptosProvider,
 } from '@/context';
 
@@ -58,6 +59,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                   <HomeProvider>
                     <LendProvider>
                       <LoanProvider>
+                        <PortfolioProvider>
                             <SocketProvider>
                               <MainLayoutHeader />
                               <div
@@ -79,6 +81,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                                 </div>
                               </div>
                             </SocketProvider>
+                        </PortfolioProvider>
                       </LoanProvider>
                     </LendProvider>
                   </HomeProvider>

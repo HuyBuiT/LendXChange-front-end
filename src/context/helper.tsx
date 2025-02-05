@@ -1,11 +1,9 @@
 import {
   SupportTokenType,
   DataListInterface,
-  StatusCampaignEnum,
   LoanContractViewInterface,
   BestOfferListViewInterface,
   ActiveLoanListViewInterface,
-  CampaignInfoResponseInterface,
   BestOfferSocketResponseInterface,
   ActiveLoanSocketResponseInterface,
 } from '@/models';
@@ -131,22 +129,4 @@ export const pushNewOffer = (
   return clonedArray;
 };
 
-export const handleRefactorListCampaignRes = (
-  campaignData: CampaignInfoResponseInterface,
-) => {
-  let status: StatusCampaignEnum;
 
-  const currenTime = new Date().getTime();
-  const startDate = new Date(campaignData.startDate).getTime();
-  const endDate = new Date(campaignData.endDate).getTime();
-
-  if (endDate < currenTime) {
-    status = StatusCampaignEnum.Past;
-  } else if (currenTime >= startDate && currenTime <= endDate) {
-    status = StatusCampaignEnum.Live;
-  } else {
-    status = StatusCampaignEnum.ComingSoon;
-  }
-
-  return { ...campaignData, status };
-};

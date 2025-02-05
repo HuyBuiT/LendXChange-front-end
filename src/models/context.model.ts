@@ -26,6 +26,8 @@ import {
 import {
   ActiveLoanListViewInterface,
   BestOfferListViewInterface,
+  LoanBorrowedInterface,
+  SuppliedAssetInterface,
 } from './home.model';
 import {
   PaginationType,
@@ -216,4 +218,14 @@ export interface LendContextInterface {
     selectedType: StatusDisplayLendContractEnum,
   ) => void;
   handleGetDataStatistic: () => void;
+}
+
+export interface PortfolioContextInterface {
+  suppliedAssetData:  SuppliedAssetInterface | undefined;
+  handleGetSuppliedAssets: () => Promise<void>;
+  loanBorrowedData:  LoanBorrowedInterface[] | undefined;
+  handleGetLoansBorrowed: () => Promise<void>;
+
+  totalSupplyAsset: number;
+  earnFromSuppliedAsset: number;
 }

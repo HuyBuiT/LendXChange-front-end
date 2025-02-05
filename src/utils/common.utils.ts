@@ -8,7 +8,6 @@ import {
   SuiSupportedTokenEnum,
   SolanaSupportedTokenEnum,
   SupportedTokenSuiIndexEnum,
-  SuiMovementSupportedTokenEnum,
   SupportedTokenSuiMovementIndexEnum,
 } from '@/models';
 import { ImageAssets } from 'public';
@@ -20,6 +19,8 @@ import {
   Asset,
   NetworkModeEnum,
 } from '@/models/app.model';
+import { AppConstant } from '@/const';
+import Cookies from 'js-cookie';
 
 export const uuid = (): string => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
@@ -352,17 +353,6 @@ export const getSolEnvByToken = (
   }
 };
 
-export const getSuiMovementEnvByToken = (
-  token: SuiMovementSupportedTokenEnum,
-  env?: string,
-) => {
-  if (!env) return '';
-  const splitKeys = env.split(',') || [];
-  const index = getSuiMovementIndex(token);
-
-  return splitKeys[index] || '';
-};
-
 export const getSuiEnvByToken = (
   token: SuiSupportedTokenEnum,
   env?: string,
@@ -429,20 +419,6 @@ export const getSolflareProvider = () => {
   }
 };
 
-export const getSuiMovementIndex = (token: SuiMovementSupportedTokenEnum) => {
-  switch (token) {
-    case SuiMovementSupportedTokenEnum.USDC:
-      return SupportedTokenSuiMovementIndexEnum.USDC;
-    case SuiMovementSupportedTokenEnum.WBTC:
-      return SupportedTokenSuiMovementIndexEnum.WBTC;
-    case SuiMovementSupportedTokenEnum.WETH:
-      return SupportedTokenSuiMovementIndexEnum.WETH;
-
-    default:
-      return SupportedTokenSuiMovementIndexEnum.USDC;
-  }
-};
-
 export const getSuiIndex = (token: SuiSupportedTokenEnum) => {
   switch (token) {
     case SuiSupportedTokenEnum.USDC:
@@ -484,3 +460,10 @@ export const convertInterestPushContractSui = (interest: number) => {
   return Math.floor((interest / 100) * 10000);
 };
 
+
+export const getAccessToken = () => {
+  return {
+    keyToken: AppConstant.KEY_TOKEN,
+    accessToken: Cookies.get(AppConstant.KEY_TOKEN),
+  };
+};

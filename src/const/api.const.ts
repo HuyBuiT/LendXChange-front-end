@@ -38,6 +38,8 @@ export const SYNC_TRANSACTION = '/sync-transaction';
 // Offer APIs
 export const OFFERS = '/offers';
 export const GET_OFFER_TEMPLATES = `${OFFERS}/SUI/templates`;
+export const SUPPLIED_ASSET = `${OFFERS}/supplied-asset`;
+export const LOAN_BORROWED = `${OFFERS}/loan-borrowed`;
 
 // Price feed APIs
 export const GET_LATEST_PRICE_FEEDS = '/latest_price_feeds';
