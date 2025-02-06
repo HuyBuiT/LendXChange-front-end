@@ -15,6 +15,7 @@ const DesktopNavigation = () => {
       <DesktopLink href={PathConstant.ROOT}>{getLabel('lHome')}</DesktopLink>
       <DesktopLink href={PathConstant.LEND}>{getLabel('lLend')}</DesktopLink>
       <DesktopLink href={PathConstant.LOAN}>{getLabel('lLoan')}</DesktopLink>
+      <DesktopLink href={PathConstant.PORTFOLIO}>{getLabel('lPortfolio')}</DesktopLink>
     </div>
   );
 };
