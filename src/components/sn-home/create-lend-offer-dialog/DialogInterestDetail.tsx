@@ -101,8 +101,6 @@ const DialogInterestDetail: React.FC<DialogInterestDetailProps> = ({
 
   const { label, imageUrl } = useMemo(() => {
     switch (selectedChain) {
-      case SupportedChainEnum.Solana:
-        return { label: 'Kamino', imageUrl: ImageAssets.KaminoLogoImage };
       case SupportedChainEnum.Sui:
         return { label: 'Scallop', imageUrl: ImageAssets.ScallopLogoImage };
       default:

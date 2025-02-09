@@ -41,20 +41,6 @@ const FirstIntro = () => {
                 'absolute z-[100] top-1/2 left-1/2 -translate-x-1/2',
               )}
             >
-              <Link
-                href={PathConstant.JOIN_SEASON_URL}
-                target="_blank"
-                className={twMerge(
-                  'px-6 py-1',
-                  'rounded-full',
-                  'w-fit h-fit',
-                  'font-semibold',
-                  'bg-joinSeasonButton',
-                  'flex items-center gap-x-2',
-                )}
-              >
-                Join season 2
-              </Link>
             </div>
           </div>
         </SwiperSlide>
@@ -101,13 +87,6 @@ const FirstIntro = () => {
                 'absolute top-1/2 left-1/2 sm:left-0 -translate-x-1/2 sm:-translate-x-0 -translate-y-2/3 sm:-translate-y-1/2',
               )}
             >
-              <Link
-                className="bg-[#2b372fca] font-semibold px-4 py-2 rounded-full text-sm"
-                href={PathConstant.TRY_NOW_ECLIPSE_TEST_NET_URL}
-                target="_blank"
-              >
-                Try now
-              </Link>
             </div>
           </div>
         </SwiperSlide>

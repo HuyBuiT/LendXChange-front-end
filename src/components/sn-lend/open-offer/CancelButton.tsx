@@ -10,7 +10,7 @@ import React, {
 import { LangConstant } from '@/const';
 import { twMerge } from 'tailwind-merge';
 import { useTranslation } from 'react-i18next';
-import { CommonButton, FeedbackPopup } from '@/components/common';
+import { CommonButton } from '@/components/common';
 import {
   useAppContext,
   useAuthContext,
@@ -163,12 +163,6 @@ const CancelButton: React.FC<CancelButtonProps> = ({
           {statusLabel}
         </CommonButton>
       </OfferDetailDialog>
-
-      <FeedbackPopup
-        paramsPost={{ ...accountInfo, showFeedbackOnCancel: false }}
-        isOpen={isOpenFeedbackPopup}
-        onClose={handleCloseFeedbackPopup}
-      />
     </>
   );
 };

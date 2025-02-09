@@ -6,7 +6,6 @@ import CommonButton, {
 } from '@/components/common/CommonButton';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
-import { useNotificationContext } from '@/context';
 import { ObjectMultiLanguageProps } from '@/models';
 
 const HealthRatio: React.FC<HealthRatioProps> = ({
@@ -19,8 +18,6 @@ const HealthRatio: React.FC<HealthRatioProps> = ({
   const objectTeleNotification = getLabel('objTeleNotification', {
     returnObjects: true,
   }) as ObjectMultiLanguageProps;
-
-  const { currentNotifiSetting } = useNotificationContext();
 
   return (
     <div
@@ -64,12 +61,6 @@ const HealthRatio: React.FC<HealthRatioProps> = ({
               ? 'border-primary5'
               : 'border-neutral7',
           )}
-          defaultValue={
-            DEFAULT_HEALTH_RATIO_OPTIONS.includes(healthRatio) ||
-            !currentNotifiSetting.healthRatioThreshold
-              ? ''
-              : currentNotifiSetting.healthRatioThreshold
-          }
           onChange={(e) => onSelectHealthRatio(Number(e.target.value))}
         />
       </div>

@@ -26,14 +26,7 @@ const ConnectWalletDialog: React.FC<ConnectWalletDialogProps> = ({
       titleClassName={twJoin('font-semibold', 'text-lg text-neutral2')}
     >
       <div className="w-full mt-5">
-        {selectedChain === SupportedChainEnum.Solana ||
-        selectedChain === SupportedChainEnum.Eclipse ? (
-          <SolanaWalletList onClose={onClose} />
-        ) : selectedChain === SupportedChainEnum.AptosMovement ? (
-          <AptosWalletList onClose={onClose} />
-        ) : (
           <Fragment />
-        )}
       </div>
     </CommonDialog>
   );

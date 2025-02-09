@@ -5,7 +5,7 @@ import { ImageAssets } from 'public';
 import { PathConstant } from '@/const';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
-import { useAuthContext, useNotificationContext } from '@/context';
+import { useAuthContext } from '@/context';
 import { ArrowDirectionIcon, EditIcon, InfoIcon } from '@/components/icons';
 
 import StringFormat from 'string-format';
@@ -20,8 +20,6 @@ const InputNotificationSetting: React.FC<InputNotificationSettingProps> = ({
   const { t: getLabel } = useTranslation();
   const { connectedChainAddress } = useAuthContext();
 
-  const { setIsTelegramLinked, currentNotifiSetting } =
-    useNotificationContext();
 
   return (
     <div
@@ -59,36 +57,10 @@ const InputNotificationSetting: React.FC<InputNotificationSettingProps> = ({
             'w-[30px] h-[30px]',
             'absolute right-0 translate-x-1/2',
           )}
-          onClick={() => setIsTelegramLinked(false)}
         >
           <EditIcon className="text-neutral1 w-4 h-4" />
         </span>
       </div>
-
-      {!currentNotifiSetting.telegramChatId && (
-        <a
-          className={twJoin(
-            'rounded-b',
-            'px-4 py-2.5',
-            'text-primary5',
-            'space-between-root',
-            'bg-characterUpcoming',
-          )}
-          href={StringFormat(PathConstant.VERIFY_TELEGRAM_LINK, {
-            walletAddress: connectedChainAddress,
-          })}
-          target="_blank"
-          onClick={onClose}
-        >
-          <div className="flex items-center gap-x-1.5">
-            <InfoIcon width={14} height={14} />
-            <p className="text-sm font-medium">
-              {getLabel('lVerifyTelegramID')}
-            </p>
-          </div>
-          <ArrowDirectionIcon className="-rotate-45" />
-        </a>
-      )}
     </div>
   );
 };

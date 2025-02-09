@@ -7,7 +7,7 @@ import { Loading } from '@/components/common';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { useWindowSize } from '@/hooks/common-hooks';
-import { useAuthContext, useNotificationContext } from '@/context';
+import { useAuthContext } from '@/context';
 
 import NotificationListHeader from './NotificationListHeader';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -26,17 +26,6 @@ const NotificationListContent: React.FC<NotificationListContentProps> = ({
 
   const { isWalletConnected, connectedChainAddress } = useAuthContext();
 
-  const {
-    notificationHistory,
-    paginationNotifiHistory,
-
-    handleGetNotifiHistory,
-  } = useNotificationContext();
-
-  const isLoadMore = useMemo(() => {
-    return notificationHistory.length < paginationNotifiHistory.total;
-  }, [notificationHistory, paginationNotifiHistory]);
-
   const handleGetTitleNotifi = (notifiType: NotificationTypeEnum) => {
     if (notifiType === NotificationTypeEnum.HEALTH_RATIO) {
       return getLabel('lHealthRatioAlert');
@@ -53,11 +42,6 @@ const NotificationListContent: React.FC<NotificationListContentProps> = ({
     }
   };
 
-  useEffect(() => {
-    if (!isWalletConnected || !connectedChainAddress) return;
-    handleGetNotifiHistory();
-  }, [isWalletConnected, connectedChainAddress]);
-
   return (
     <div
       className={twMerge(
@@ -70,55 +54,6 @@ const NotificationListContent: React.FC<NotificationListContentProps> = ({
       )}
       {...otherProps}
     >
-      <NotificationListHeader onClose={onClose} />
-
-      {notificationHistory.length > 0 ? (
-        <InfiniteScroll
-          next={() =>
-            handleGetNotifiHistory(paginationNotifiHistory.pageNum + 1, true)
-          }
-          height={windowWidth <= AppConstant.BREAK_POINTS.sm ? 650 : 550}
-          hasMore={isLoadMore}
-          dataLength={paginationNotifiHistory.total}
-          loader={
-            <div className="center-root mt-3">
-              <Loading />
-            </div>
-          }
-        >
-          {notificationHistory.map((item, index) => (
-            <NotificationListItem
-              key={index}
-              title={handleGetTitleNotifi(item.notificationType)}
-              time={new Date(item.createdAt).getTime() / 1000}
-              isUnread={!item.seenAt}
-            >
-              <p
-                className="text-sm text-neutral4"
-                dangerouslySetInnerHTML={{ __html: item.metadata.message }}
-              ></p>
-            </NotificationListItem>
-          ))}
-        </InfiniteScroll>
-      ) : (
-        <div
-          className={twJoin(
-            'px-10',
-            'w-full h-full',
-            'flex-col center-root gap-y-1',
-          )}
-        >
-          <Image
-            width={40}
-            height={40}
-            alt="Notification settings"
-            src={ImageAssets.NotificationImage}
-          />
-          <p className="text-lg font-semibold text-center">
-            {getLabel('msgReceivedAnyNotification')}
-          </p>
-        </div>
-      )}
     </div>
   );
 };

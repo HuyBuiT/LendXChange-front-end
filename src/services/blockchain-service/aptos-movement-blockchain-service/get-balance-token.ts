@@ -1,7 +1,7 @@
 import { AppConstant } from '@/const';
 import { ReqGetBalanceTokenInterface } from '..';
 import { Aptos, AptosConfig, Network } from '@aptos-labs/ts-sdk';
-import { AptosMovementSupportedTokenEnum, SupportTokenType } from '@/models';
+import { SupportTokenType } from '@/models';
 
 const aptosConfig = new AptosConfig({
   network: Network.CUSTOM,
@@ -26,30 +26,6 @@ export const getBalanceToken = async (
     if (!data.length) {
       return balances;
     }
-
-    Array.from(assets.values()).map((asset) => {
-      const tokenAddress =
-        asset.symbol !== AptosMovementSupportedTokenEnum.APT
-          ? asset.tokenAddress
-          : AppConstant.APTOS_MOVEMENT_COIN_TYPE;
-
-      const index = data
-        .map((item) => item.type)
-        .indexOf(`${AppConstant.APTOS_MOVEMENT_COIN_STORE}<${tokenAddress}>`);
-
-      if (index >= 0) {
-        const coinStore = data[index].data as CoinStore;
-        const balanceValue = coinStore?.coin?.value;
-
-        balances.set(asset.symbol, {
-          balance: balanceValue
-            ? Number(balanceValue) / Math.pow(10, asset.decimals)
-            : 0,
-        });
-      } else {
-        balances.set(asset.symbol, { balance: 0 });
-      }
-    });
     return balances;
   } catch (error) {
     console.log(error, error);

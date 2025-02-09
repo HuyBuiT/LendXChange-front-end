@@ -48,7 +48,7 @@ const ConnectWalletCrossChain: React.FC<ConnectWalletCrossChainProps> = ({
         {CommonUtils.truncateHash(crossChainAddress)}
       </span>
     </div>
-  ) : selectChainBorrow === SupportedChainEnum.SuiMovement ? (
+  ) : selectChainBorrow === SupportedChainEnum.Sui ? (
     <ConnectModal
       trigger={<ConnectCrossChainButton onClick={() => setIsOpenSui(true)} />}
       open={isOpenSui}

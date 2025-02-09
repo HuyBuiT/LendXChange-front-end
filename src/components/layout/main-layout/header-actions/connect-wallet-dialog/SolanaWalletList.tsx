@@ -29,24 +29,8 @@ const SolanaWalletList: React.FC<SolanaWalletListProps> = ({ onClose }) => {
     SolanaWalletsEnum.Salmon,
   ];
 
-  const walletList =
-    selectedChain === SupportedChainEnum.Solana
-      ? solanaWalletList
-      : eclipseWalletList;
-
   return (
     <div className={twJoin('w-full', 'flex flex-col gap-y-4')}>
-      {walletList.map((value, index) => {
-        return (
-          <WalletItem
-            key={index}
-            title={(SolanaWalletsEnum as any)[value]}
-            isBackPack={value === SolanaWalletsEnum.Backpack}
-            imgSrc={getSolWalletImage((SolanaWalletsEnum as any)[value])}
-            onClick={() => handleConnect((SolanaWalletsEnum as any)[value])}
-          />
-        );
-      })}
     </div>
   );
 };

@@ -72,7 +72,7 @@ export const HomeProvider: React.FC<HomeProviderProps> = ({ children }) => {
     if (!offersTemplate.length || offersTemplate[0].chain !== selectedChain)
       return;
 
-    const filteredIds = offersTemplate.map((item) => item.id);
+    const filteredIds = offersTemplate.map((item) => item.id.toString());
 
     const isEqual = CommonUtils.deepEqual(filteredIds, templateIds);
 

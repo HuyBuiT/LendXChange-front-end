@@ -22,7 +22,6 @@ import {
 import '@mysten/dapp-kit/dist/index.css';
 import './overrideWalletDialog.css';
 import './globals.css';
-import { GoogleAnalytics } from '@/components/common';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -47,7 +46,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 
   return (
     <html lang="en">
-      <GoogleAnalytics />
       <body id="body" className={twJoin(inter.variable, fugazOne.variable)}>
         <AppProvider
           campaignData={[]}

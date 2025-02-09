@@ -35,14 +35,6 @@ const SolanaWalletList: React.FC<SolanaWalletListProps> = ({ onClose }) => {
       return;
     }
 
-    const solAddress = await handleGetSolWalletAddress(selectedWallet);
-
-    if (solAddress) {
-      await handleGetBalancesByChain(SupportedChainEnum.Solana, solAddress);
-      setCrossChainAddress(solAddress);
-    } else {
-      setCrossChainAddress('');
-    }
   };
 
   return (

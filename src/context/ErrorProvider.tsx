@@ -44,17 +44,6 @@ export const ErrorProvider: React.FC<ErrorProviderProps> = ({ children }) => {
     Cookies.remove(AppConstant.KEY_TOKEN);
     setConnectedChainAddress('');
 
-    if (selectedChain === SupportedChainEnum.Solana) {
-      const selectWallet =
-        (localStorage.getItem(
-          AppConstant.SOLANA_PROVIDER,
-        ) as SolanaWalletsEnum) || selectedWallet;
-
-      await handleConnectSol(selectWallet);
-
-      return;
-    }
-
     if (selectedChain === SupportedChainEnum.Sui) {
       await handleLoginSui(SupportedChainEnum.Sui);
 

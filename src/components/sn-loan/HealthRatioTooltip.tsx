@@ -21,7 +21,7 @@ const HealthRatioTooltip = () => {
         <>
           {getLabel('msgAMetricThat')}
           <a
-            href={PathConstant.HEALTH_RATIO_GIT_BOOK_LINK}
+            href={''}
             target="_blank"
             className="ml-1 underline"
           >

@@ -103,7 +103,7 @@ export interface CreateLendTransactionInterface {
   walletAddress: string;
   numberOfOffer: number;
   interest: number;
-  tierId: string;
+  tierId: string | number;
   lendCoin: number;
 }
 
@@ -115,7 +115,7 @@ export interface BorrowTransactionInterface {
   walletAddress: string;
   lenderAddress: string;
   lendOfferId: string;
-  tierId: string;
+  tierId: string | number;
   collateralSymbol?: SupportTokenType;
 }
 

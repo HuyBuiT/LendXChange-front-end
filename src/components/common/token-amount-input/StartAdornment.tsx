@@ -7,8 +7,6 @@ import {
   SupportedChainEnum,
   SuiSupportedTokenEnum,
   SolanaSupportedTokenEnum,
-  SuiMovementSupportedTokenEnum,
-  AptosMovementSupportedTokenEnum,
 } from '@/models';
 import { DropdownMenuTriggerProps } from '@radix-ui/react-dropdown-menu';
 

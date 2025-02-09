@@ -4,13 +4,11 @@ import React, { useEffect, useState } from 'react';
 import { twJoin } from 'tailwind-merge';
 import { useTranslation } from 'react-i18next';
 import { CommonButton } from '@/components/common';
-import { useNotificationContext } from '@/context';
 import { ObjectMultiLanguageProps } from '@/models';
 import { CloseIcon, InfoIcon } from '@/components/icons';
 
 import HealthRatio from './HealthRatio';
 import ReceiveAlerts from './ReceiveAlerts';
-import useNotifiHooks from '@/hooks/notifi-hooks';
 import InputNotificationSetting from './InputNotificationSetting';
 import WrapperTeleNotifiContent from '../WrapperTeleNotifiContent';
 
@@ -18,14 +16,6 @@ const TeleNotificationSettingContent: React.FC<
   TeleNotificationSettingContentProps
 > = ({ onClose }) => {
   const { t: getLabel } = useTranslation();
-
-  const {
-    currentNotifiSetting,
-
-    setCurrentNotifiSetting,
-  } = useNotificationContext();
-
-  const { handleSettingNotification } = useNotifiHooks();
 
   const [isSetAlertsNotifiError] = useState(false);
 
@@ -37,20 +27,6 @@ const TeleNotificationSettingContent: React.FC<
   const [healthRatio, setHealthRatio] = useState<number>(
     Number(process.env.NORMAL_HEALTH_RATIO),
   );
-
-  const handleSettingNotifi = async () => {
-    const res = await handleSettingNotification(isShowHealthRatio, healthRatio);
-
-    if (res?.userName) {
-      setCurrentNotifiSetting(res);
-      onClose();
-    }
-  };
-
-  useEffect(() => {
-    setHealthRatio(currentNotifiSetting.healthRatioThreshold);
-    setIsShowHealthRatio(currentNotifiSetting.enable);
-  }, [currentNotifiSetting]);
 
   return (
     <WrapperTeleNotifiContent className="pt-4 gap-y-6 sm:gap-y-4 items-start">
@@ -74,10 +50,6 @@ const TeleNotificationSettingContent: React.FC<
           onClick={onClose}
         />
       </div>
-      <InputNotificationSetting
-        telegramId={currentNotifiSetting.userName}
-        onClose={onClose}
-      />
 
       <p className={twJoin('w-full', 'text-sm text-neutral4 text-start')}>
         {objectTeleNotification.msgSelectTheAlerts}
@@ -102,9 +74,6 @@ const TeleNotificationSettingContent: React.FC<
           )}
         </div>
       )}
-      <CommonButton className="w-full" onClick={handleSettingNotifi}>
-        {getLabel('lDone')}
-      </CommonButton>
       {healthRatio < Number(process.env.LIQUID) && isShowHealthRatio && (
         <div className={twJoin('text-warning2', 'flex items-center gap-x-1')}>
           <InfoIcon />

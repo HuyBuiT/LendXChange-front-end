@@ -16,12 +16,9 @@ import {
   SupportedChainEnum,
   SuiSupportedTokenEnum,
   SolanaSupportedTokenEnum,
-  SuiMovementSupportedTokenEnum,
-  AptosMovementSupportedTokenEnum,
 } from '@/models';
 import Image from 'next/image';
 import { useAppContext } from '@/context';
-import { EclipseSupportedTokenEnum } from '@/models/app.model';
 
 const TokenListDropdown: React.FC<TokenListDropdownProps> = ({
   selectedChain,
@@ -41,16 +38,8 @@ const TokenListDropdown: React.FC<TokenListDropdownProps> = ({
 
   const tokenEnum = useMemo(() => {
     switch (selectedChain) {
-      case SupportedChainEnum.Solana:
-        return SolanaSupportedTokenEnum;
-      case SupportedChainEnum.Eclipse:
-        return EclipseSupportedTokenEnum;
-      case SupportedChainEnum.SuiMovement:
-        return SuiMovementSupportedTokenEnum;
       case SupportedChainEnum.Sui:
         return SuiSupportedTokenEnum;
-      case SupportedChainEnum.AptosMovement:
-        return AptosMovementSupportedTokenEnum;
       default:
         return {} as any;
     }

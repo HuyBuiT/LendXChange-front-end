@@ -19,7 +19,7 @@ import { CommonUtils, FormatUtils } from '@/utils';
 import { AppConstant, LangConstant } from '@/const';
 import { DialogHeader } from '../dialog-components';
 import { useWindowSize } from '@/hooks/common-hooks';
-import { CommonDialog, FeedbackPopup } from '@/components/common';
+import { CommonDialog } from '@/components/common';
 import { useAuthContext, useAppContext, useHomeContext } from '@/context';
 
 import DialogContent from './DialogContent';
@@ -158,12 +158,6 @@ const RepayDialog: React.FC<RepayDialogProps> = ({
           }
         />
       </CommonDialog>
-
-      <FeedbackPopup
-        paramsPost={{ ...accountInfo, showFeedbackOnRepay: false }}
-        isOpen={isOpenFeedbackPopup}
-        onClose={() => setIsOpenFeedbackPopup(false)}
-      />
     </>
   );
 };

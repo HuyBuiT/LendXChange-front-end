@@ -17,8 +17,7 @@ const ConnectWalletButton = () => {
   const { isConnecting, isOpenConnectDialog, setIsOpenConnectDialog } =
     useAuthContext();
 
-  return selectedChain === SupportedChainEnum.SuiMovement ||
-    selectedChain === SupportedChainEnum.Sui ? (
+  return selectedChain === SupportedChainEnum.Sui ? (
     <ConnectModal
       trigger={
         <div

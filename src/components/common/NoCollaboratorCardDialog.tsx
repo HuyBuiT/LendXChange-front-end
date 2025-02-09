@@ -61,21 +61,6 @@ const NoCollaboratorCardDialog: React.FC<CommonDialogProps> = ({
             ? getHomeLabel('msgCheckOutTheDifferent')
             : getHomeLabel('msgStayTunedForUpdates')}
         </p>
-
-        {selectedChain === SupportedChainEnum.Sui ? (
-          <Link
-            href={PathConstant.GIT_BOOK_GRAB_EARLY_CONTRIBUTOR_ON_SUI}
-            className="w-full text-sm font-semibold py-3 text-center bg-primary6 rounded"
-            onClick={onClose}
-            target="_blank"
-          >
-            {getAffiliateLabel('lLearnMore')}
-          </Link>
-        ) : (
-          <CommonButton className="w-full h-11" onClick={onClose}>
-            {getHomeLabel('lGotIt')}
-          </CommonButton>
-        )}
       </div>
     </CommonDialog>
   );

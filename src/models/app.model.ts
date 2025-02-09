@@ -75,7 +75,7 @@ export type SupportTokenType =
   | SuiSupportedTokenEnum;
 
 export interface OfferDataDetailViewInterface {
-  id: string;
+  id: string | number;
   amount: number;
   volume: number;
   bestOffer: number;

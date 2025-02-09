@@ -3,7 +3,6 @@
 import React, { ComponentPropsWithRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { useTranslation } from 'react-i18next';
-import { useNotificationContext } from '@/context';
 import { CloseIcon, SettingIcon } from '@/components/icons';
 
 const NotificationListHeader: React.FC<NotificationListHeaderProps> = ({
@@ -13,7 +12,6 @@ const NotificationListHeader: React.FC<NotificationListHeaderProps> = ({
   ...otherProps
 }) => {
   const { t: getLabel } = useTranslation();
-  const { setIsChangeSetting } = useNotificationContext();
 
   return (
     <div
@@ -28,12 +26,6 @@ const NotificationListHeader: React.FC<NotificationListHeaderProps> = ({
     >
       <div className="flex items-center gap-x-4">
         <p>{getLabel('lNotification')}</p>
-        <SettingIcon
-          width={24}
-          height={24}
-          className="cursor-pointer"
-          onClick={() => setIsChangeSetting(true)}
-        />
       </div>
       <CloseIcon
         width={24}

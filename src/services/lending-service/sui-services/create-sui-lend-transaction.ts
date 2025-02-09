@@ -55,7 +55,7 @@ export const createSuiLendTransaction = async (
         tx.object(version),
         tx.object(contractState),
         tx.object(contractConfig),
-        tx.pure.string(tierId),
+        tx.pure.string(tierId.toString()),
         splitCoinAmount,
         tx.pure.u64(convertInterest),
       ],

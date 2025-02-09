@@ -21,7 +21,7 @@ const BorrowerFeeTooltip = () => {
         <>
           {getLabel('msgTheFeeCharged')}
           <a
-            href={PathConstant.BORROWER_FEE_GIT_BOOK_LINK}
+            href={''}
             target="_blank"
             className="ml-1 underline"
           >

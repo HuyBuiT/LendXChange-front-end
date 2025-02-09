@@ -16,7 +16,6 @@ import {
   SolanaSupportedTokenEnum,
 } from '@/models/app.model';
 import { useSearchParams } from 'next/navigation';
-import { handleRefactorListCampaignRes } from './helper';
 
 const INITIAL_STATE = {} as AppContextInterface;
 
@@ -50,18 +49,6 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     useState(AppConstant.INIT_PRICE_FEED);
 
   const [accountInfo, setAccountInfo] = useState({} as AccountInfoInterface);
-
-  const listCampaignByChain = useMemo(() => {
-    const filterByChain = campaignData
-      .filter((item) => item.network === selectedChain)
-      .map((item) => handleRefactorListCampaignRes(item));
-
-    if (!filterByChain.length) return [];
-
-    return filterByChain.sort(
-      (a, b) => new Date(a.endDate).getTime() - new Date(b.endDate).getTime(),
-    );
-  }, [campaignData, selectedChain]);
 
   const handleGetAssets = async () => {
     const availableAssets = await getAssets({ network: selectedChain });

@@ -52,9 +52,6 @@ const SelectChainButton: React.FC<SelectChainButtonProps> = ({
               'hover:bg-white/10',
               'space-between-root gap-x-2',
               'border-t border-neutral7 first:border-transparent',
-              (item === SupportedChainEnum.Monad ||
-                item === SupportedChainEnum.Injective) &&
-                '!hidden',
             )}
             onClick={() => {
               setIsOpen(!isOpen);
