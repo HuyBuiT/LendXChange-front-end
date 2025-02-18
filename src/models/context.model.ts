@@ -228,4 +228,12 @@ export interface PortfolioContextInterface {
 
   totalSupplyAsset: number;
   earnFromSuppliedAsset: number;
+
+  systemSuppliedAssetData:  SuppliedAssetInterface | undefined;
+  handleGetSystemSuppliedAssets: () => Promise<void>;
+  systemLoanBorrowedData:  LoanBorrowedInterface[] | undefined;
+  handleGetSystemLoansBorrowed: () => Promise<void>;
+
+  systemTotalSupplyAsset: number;
+  systemEarnFromSuppliedAsset: number;
 }

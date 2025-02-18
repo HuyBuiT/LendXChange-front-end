@@ -1,4 +1,4 @@
-import { getLoanBorrowedService, getSuppliedAssetService } from '@/services/home-services';
+import { getLoanBorrowedService, getSuppliedAssetService, getSystemLoanBorrowedService, getSystemSuppliedAssetService } from '@/services/home-services';
 import {
   refactorLoanBorrowed,
   refactorSuppliedAsset,
@@ -26,9 +26,32 @@ const usePortfolioHooks = () => {
     }
   };
 
+
+  const handleGetSystemSuppliedAsset = async (access: string) => {
+    const responseData = await getSystemSuppliedAssetService(access);
+
+    if (responseData) {
+      return refactorSuppliedAsset(responseData) as SuppliedAssetInterface;
+    } else {
+      return {} as SuppliedAssetInterface;
+    }
+  };
+
+  const handleGetSystemLoanBorrowed = async (access: string) => {
+    const responseData = await getSystemLoanBorrowedService(access);
+
+    if (responseData) {
+      return refactorLoanBorrowed(responseData) as LoanBorrowedInterface[];
+    } else {
+      return [] as LoanBorrowedInterface[];
+    }
+  };
+
   return {
     handleGetLoanBorrowed,
     handleGetSuppliedAsset,
+    handleGetSystemSuppliedAsset,
+    handleGetSystemLoanBorrowed,
   };
 };
 

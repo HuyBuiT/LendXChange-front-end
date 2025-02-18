@@ -26,11 +26,18 @@ export const PortfolioProvider: React.FC<PortfolioProviderProps> = ({
   const {
     handleGetLoanBorrowed,
     handleGetSuppliedAsset,
+    handleGetSystemLoanBorrowed,
+    handleGetSystemSuppliedAsset,
   } = usePortfolioHooks();
 
   const [suppliedAssetData, setSuppliedAssetData] =
     useState< SuppliedAssetInterface>();
   const [loanBorrowedData, setLoanBorrowedData] =
+    useState< LoanBorrowedInterface[]>();
+
+    const [systemSuppliedAssetData, setSystemSuppliedAssetData] =
+    useState< SuppliedAssetInterface>();
+  const [systemLoanBorrowedData, setSystemLoanBorrowedData] =
     useState< LoanBorrowedInterface[]>();
 
   const { totalSupplyAsset, earnFromSuppliedAsset } = useDeepCompareMemo(() => {
@@ -65,6 +72,38 @@ export const PortfolioProvider: React.FC<PortfolioProviderProps> = ({
     return { totalSupplyAsset, earnFromSuppliedAsset };
   }, [suppliedAssetData]);
 
+  const { systemTotalSupplyAsset, systemEarnFromSuppliedAsset } = useDeepCompareMemo(() => {
+    let systemTotalSupplyAsset = 0;
+    let systemEarnFromSuppliedAsset = 0;
+
+      const lendSuppliedData = systemSuppliedAssetData?.lendSupplied;
+      const lendSupplyItem =
+        lendSuppliedData?.reduce(
+          (sum, current) => sum + current.lendSuppliedValue,
+          0,
+        ) || 0;
+
+      const collateralSuppliedData =
+      systemSuppliedAssetData?.collateralSupplied;
+      const collateralSupplyItem =
+        collateralSuppliedData?.reduce(
+          (sum, current) => sum + current.collateralSuppliedValue,
+          0,
+        ) || 0;
+
+      const interestEarnedItem =
+        lendSuppliedData?.reduce(
+          (sum, current) => sum + current.interestEarnedValue,
+          0,
+        ) || 0;
+
+        systemTotalSupplyAsset += lendSupplyItem;
+      systemTotalSupplyAsset += collateralSupplyItem;
+      systemEarnFromSuppliedAsset += interestEarnedItem;
+
+    return { systemTotalSupplyAsset, systemEarnFromSuppliedAsset };
+  }, [systemSuppliedAssetData]);
+
   const handleGetSuppliedAssets = async () => {
     const { accessToken } = CommonUtils.getAccessToken();
     if (!accessToken ) return;
@@ -80,6 +119,21 @@ export const PortfolioProvider: React.FC<PortfolioProviderProps> = ({
     setLoanBorrowedData(res);
   };
 
+  const handleGetSystemSuppliedAssets = async () => {
+    const { accessToken } = CommonUtils.getAccessToken();
+    if (!accessToken ) return;
+    const res = await handleGetSystemSuppliedAsset(accessToken);
+    setSystemSuppliedAssetData(res);
+  };
+
+  const handleGetSystemLoansBorrowed = async (chain?: SupportedChainEnum) => {
+
+    const { accessToken } = CommonUtils.getAccessToken();
+    if (!accessToken) return;
+    const res = await handleGetSystemLoanBorrowed(accessToken);
+    setSystemLoanBorrowedData(res);
+  };
+
   return (
     <PortfolioContext.Provider
       value={{
@@ -90,6 +144,14 @@ export const PortfolioProvider: React.FC<PortfolioProviderProps> = ({
 
         totalSupplyAsset,
         earnFromSuppliedAsset,
+
+        systemLoanBorrowedData,
+        handleGetSystemLoansBorrowed,
+        systemSuppliedAssetData,
+        handleGetSystemSuppliedAssets,
+
+        systemTotalSupplyAsset,
+        systemEarnFromSuppliedAsset,
       }}
     >
       {children}

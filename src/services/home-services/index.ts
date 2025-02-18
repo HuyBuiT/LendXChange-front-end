@@ -159,3 +159,33 @@ export const getLoanBorrowedService = async (access: string) => {
     return undefined;
   }
 };
+
+export const getSystemSuppliedAssetService = async (access: string) => {
+  const response: ApiResponse<BaseResponseData<ResSuppliedAssetInterface>> =
+    await createDappServices(access).get(ApiConstant.SYSTEM_SUPPLIED_ASSET);
+
+  const responseData = CommonUtils.getDappServicesResponseData(
+    response,
+  ) as ResSuppliedAssetInterface;
+
+  if (responseData) {
+    return responseData;
+  } else {
+    return undefined;
+  }
+};
+
+export const getSystemLoanBorrowedService = async (access: string) => {
+  const response: ApiResponse<BaseResponseData<ResLoanBorrowedInterface[]>> =
+    await createDappServices(access).get(ApiConstant.SYSTEM_LOAN_BORROWED);
+
+  const responseData = CommonUtils.getDappServicesResponseData(
+    response,
+  ) as ResLoanBorrowedInterface[];
+
+  if (responseData) {
+    return responseData;
+  } else {
+    return undefined;
+  }
+};

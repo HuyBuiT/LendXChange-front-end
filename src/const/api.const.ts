@@ -41,6 +41,9 @@ export const GET_OFFER_TEMPLATES = `${OFFERS}/SUI/templates`;
 export const SUPPLIED_ASSET = `${OFFERS}/supplied-asset`;
 export const LOAN_BORROWED = `${OFFERS}/loan-borrowed`;
 
+export const SYSTEM_SUPPLIED_ASSET = `${OFFERS}/system-supplied-asset`;
+export const SYSTEM_LOAN_BORROWED = `${OFFERS}/system-loan-borrowed`;
+
 // Price feed APIs
 export const GET_LATEST_PRICE_FEEDS = '/latest_price_feeds';
 
