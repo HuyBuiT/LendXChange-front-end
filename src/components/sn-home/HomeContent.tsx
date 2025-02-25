@@ -1,11 +1,13 @@
 'use client';
 
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { AppConstant } from '@/const';
 import { OfferCard, OfferTable } from '.';
 import { useHomeContext } from '@/context';
 import { useWindowSize } from '@/hooks/common-hooks';
 import NoCollaboratorCardDialog from '../common/NoCollaboratorCardDialog';
+import { MessageCircle, X } from 'lucide-react';
+import AIAssistant from '../common/AiAssistantChat';
 
 const HomeContent = () => {
   const { windowWidth } = useWindowSize();
@@ -14,6 +16,10 @@ const HomeContent = () => {
   const { isOpenNoCollaboratorDialog, setIsOpenNoCollaboratorDialog } =
     useHomeContext();
 
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const toggleChat = () => {
+    setIsChatOpen(!isChatOpen);
+  };
   return (
     <>
       <div className="mb-8">
@@ -39,6 +45,9 @@ const HomeContent = () => {
         <Fragment />
       )}
 
+      {/* AI Assistant Chat Button */}
+      <AIAssistant />
+      
       <NoCollaboratorCardDialog
         isOpen={isOpenNoCollaboratorDialog}
         onClose={() => setIsOpenNoCollaboratorDialog(false)}

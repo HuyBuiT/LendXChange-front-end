@@ -8,6 +8,7 @@ import { useWindowSize } from '@/hooks/common-hooks';
 
 import OpenOfferTable from './open-offer/open-offer-table';
 import ContractTable from './contract/contract-table';
+import AIAssistant from '../common/AiAssistantChat';
 
 const LendContent: React.FC<ComponentPropsWithoutRef<'div'>> = ({
   ...otherProps
@@ -15,7 +16,8 @@ const LendContent: React.FC<ComponentPropsWithoutRef<'div'>> = ({
   const { windowWidth } = useWindowSize();
 
   return (
-    <div
+    <>
+     <div
       className={twMerge(
         'w-full h-full',
         'p-4 sm:pb-10',
@@ -32,6 +34,10 @@ const LendContent: React.FC<ComponentPropsWithoutRef<'div'>> = ({
         </div>
       )}
     </div>
+      {/* AI Assistant Chat Button */}
+      <AIAssistant />
+    </>
+   
   );
 };
 
