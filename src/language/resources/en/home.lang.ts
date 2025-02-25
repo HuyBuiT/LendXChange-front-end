@@ -1,6 +1,6 @@
 export default {
-  lLend: 'Lend',
-  lBorrow: 'Borrow',
+  lLend: 'Create offer',
+  lBorrow: 'Take a loan',
   lViewOrder: 'View Order',
   lGotIt: 'Got it!',
 
