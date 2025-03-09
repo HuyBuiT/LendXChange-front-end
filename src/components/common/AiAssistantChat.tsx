@@ -1,10 +1,12 @@
-// components/AIAssistant.jsx
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MessageCircle, X } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import { useAuthContext } from '@/context';
 
 const AIAssistant = () => {
+    const { connectedChainAddress } = useAuthContext();
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [messages, setMessages] = useState([
     { 
@@ -19,12 +21,21 @@ const AIAssistant = () => {
     }
   ]);
   const [inputMessage, setInputMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
   };
 
-  const handleSendMessage = () => {
+  // Auto-scroll to the bottom when messages change
+  useEffect(() => {
+    const chatContainer = document.getElementById('chat-messages');
+    if (chatContainer) {
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+  }, [messages]);
+
+  const handleSendMessage = async () => {
     if (inputMessage.trim() === '') return;
     
     // Add user message
@@ -36,20 +47,55 @@ const AIAssistant = () => {
     
     setMessages([...messages, newUserMessage]);
     setInputMessage('');
+    setIsLoading(true);
     
-    // In a real implementation, you would call your AI API here
-    // For now, we'll simulate a response after a delay
-    setTimeout(() => {
-      const botResponse = {
+    try {
+      // Call the API
+      const response = await fetch('http://localhost:3000/api/agents', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: inputMessage,
+          walletAddress: connectedChainAddress,
+        }),
+      });
+      
+      const result = await response.json();
+      
+      if (result.data && result.data.length > 0) {
+        // Handle multiple messages from the API
+        const newBotMessages = result.data.map((item: any, index: any) => ({
+          id: messages.length + 2 + index, // Ensure unique IDs for each message
+          text: item.text,
+          isBot: true
+        }));
+        
+        setMessages(prev => [...prev, ...newBotMessages]);
+      } else {
+        // Fallback response if the API doesn't return expected data
+        const fallbackResponse = {
+          id: messages.length + 2,
+          text: "Sorry, I couldn't process your request. Please try again.",
+          isBot: true
+        };
+        setMessages(prev => [...prev, fallbackResponse]);
+      }
+    } catch (error) {
+      console.error('Error calling AI API:', error);
+      const errorResponse = {
         id: messages.length + 2,
-        text: "I'm a demo assistant. In the real implementation, I would connect to your AI backend to provide helpful responses.",
+        text: "Sorry, there was an error processing your request. Please try again later.",
         isBot: true
       };
-      setMessages(prev => [...prev, botResponse]);
-    }, 1000);
+      setMessages(prev => [...prev, errorResponse]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleKeyPress = (e: { key: string; }) => {
+  const handleKeyPress = (e: any) => {
     if (e.key === 'Enter') {
       handleSendMessage();
     }
@@ -81,7 +127,7 @@ const AIAssistant = () => {
             </button>
           </div>
           
-          <div className="flex-grow p-4 overflow-y-auto bg-gray-900">
+          <div className="flex-grow p-4 overflow-y-auto bg-gray-900" id="chat-messages">
             <div className="flex flex-col space-y-3">
               {messages.map((message) => (
                 <div 
@@ -92,9 +138,28 @@ const AIAssistant = () => {
                       : 'bg-indigo-600 self-end'
                   }`}
                 >
-                  {message.text}
+                  {message.isBot ? (
+                    <div className="markdown prose prose-invert max-w-none break-words">
+                      <ReactMarkdown>
+                        {message.text}
+                      </ReactMarkdown>
+                    </div>
+                  ) : (
+                    <div className="break-words">
+                      {message.text}
+                    </div>
+                  )}
                 </div>
               ))}
+              {isLoading && (
+                <div className="bg-gray-800 self-start rounded-lg p-3 max-w-[80%] text-sm text-white">
+                  <div className="flex space-x-2">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+                    <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse delay-75"></div>
+                    <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse delay-150"></div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
           
@@ -107,10 +172,12 @@ const AIAssistant = () => {
                 onKeyPress={handleKeyPress}
                 placeholder="Type your question here..." 
                 className="flex-grow bg-transparent text-white text-sm outline-none"
+                disabled={isLoading}
               />
               <button 
                 onClick={handleSendMessage}
-                className="ml-2 text-purple-400 hover:text-purple-300"
+                className={`ml-2 text-purple-400 hover:text-purple-300 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                disabled={isLoading}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="22" y1="2" x2="11" y2="13"></line>
