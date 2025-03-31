@@ -21,6 +21,45 @@ export default {
   lNotification: 'Notification',
   lError: 'Error',
   lProcessing: 'Processing',
+  lAdmin: 'Admin',
+
+  // Basic Admin Page
+lAdminDashboard: "Admin Dashboard",
+lWelcomeAdmin: "Welcome, Administrator",
+lConnectedAs: "Connected as",
+lLoading: "Loading",
+
+// Buttons
+lRefreshData: "Refresh Data",
+lExportStats: "Export Stats",
+lViewAllUsers: "View All Users",
+lViewAllTransactions: "View All Transactions",
+lPause: "Pause",
+lUpdate: "Update",
+
+// Stats Cards
+lTotalWallets: "Total Wallets",
+lTotalOffers: "Total Offers",
+lActiveOffers: "Active Offers",
+lTotalLoans: "Total Loans",
+lActiveLoans: "Active Loans",
+
+// System Activity
+lSystemActivity: "System Activity",
+lActiveOfferRatio: "Active Offer Ratio",
+lActiveLoanRatio: "Active Loan Ratio",
+lOffersPerWallet: "Offers Per Wallet",
+lLoansPerWallet: "Loans Per Wallet",
+
+// Sections
+lSystemStats: "System Statistics",
+lUserManagement: "User Management",
+lContractSettings: "Contract Settings",
+lTransactionHistory: "Transaction History",
+
+// Transactions
+lRecentActivity: "Recent Activity",
+lNoRecentTransactions: "No recent transactions to display",
 
   lActiveLoan: 'Active Loan',
   lTaken: 'Taken',

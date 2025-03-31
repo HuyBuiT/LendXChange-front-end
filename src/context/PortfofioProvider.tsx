@@ -9,7 +9,7 @@ import { SupportedChainEnum } from '@/models/app.model';
 
 
 import usePortfolioHooks from '@/hooks/portfolio-hooks';
-import { SuppliedAssetInterface, LoanBorrowedInterface } from '@/models/home.model';
+import { SuppliedAssetInterface, LoanBorrowedInterface, SystemStatisticInterface } from '@/models/home.model';
 import { PortfolioContextInterface } from '@/models/context.model';
 
 const INITIAL_STATE = {} as PortfolioContextInterface;
@@ -28,6 +28,7 @@ export const PortfolioProvider: React.FC<PortfolioProviderProps> = ({
     handleGetSuppliedAsset,
     handleGetSystemLoanBorrowed,
     handleGetSystemSuppliedAsset,
+    handleGetSystemStatistic,
   } = usePortfolioHooks();
 
   const [suppliedAssetData, setSuppliedAssetData] =
@@ -39,6 +40,9 @@ export const PortfolioProvider: React.FC<PortfolioProviderProps> = ({
     useState< SuppliedAssetInterface>();
   const [systemLoanBorrowedData, setSystemLoanBorrowedData] =
     useState< LoanBorrowedInterface[]>();
+  
+  const [systemStatisticData, setSystemStatisticData] =
+    useState<SystemStatisticInterface>();
 
   const { totalSupplyAsset, earnFromSuppliedAsset } = useDeepCompareMemo(() => {
     let totalSupplyAsset = 0;
@@ -134,6 +138,13 @@ export const PortfolioProvider: React.FC<PortfolioProviderProps> = ({
     setSystemLoanBorrowedData(res);
   };
 
+  const handleGetSystemStatistics = async () => {
+    const { accessToken } = CommonUtils.getAccessToken();
+    if (!accessToken) return;
+    const res = await handleGetSystemStatistic(accessToken);
+    setSystemStatisticData(res);
+  };
+
   return (
     <PortfolioContext.Provider
       value={{
@@ -149,6 +160,9 @@ export const PortfolioProvider: React.FC<PortfolioProviderProps> = ({
         handleGetSystemLoansBorrowed,
         systemSuppliedAssetData,
         handleGetSystemSuppliedAssets,
+
+        systemStatisticData,
+        handleGetSystemStatistics,
 
         systemTotalSupplyAsset,
         systemEarnFromSuppliedAsset,

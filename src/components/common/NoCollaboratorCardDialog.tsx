@@ -36,7 +36,7 @@ const NoCollaboratorCardDialog: React.FC<CommonDialogProps> = ({
     >
       <Image
         src={ImageAssets.EnsoShadowLogoImage}
-        alt="Enso Shadow Logo Image"
+        alt="LendXChange Shadow Logo Image"
         className={twJoin(
           'absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2',
         )}

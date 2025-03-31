@@ -28,6 +28,7 @@ import {
   BestOfferListViewInterface,
   LoanBorrowedInterface,
   SuppliedAssetInterface,
+  SystemStatisticInterface,
 } from './home.model';
 import {
   PaginationType,
@@ -233,6 +234,9 @@ export interface PortfolioContextInterface {
   handleGetSystemSuppliedAssets: () => Promise<void>;
   systemLoanBorrowedData:  LoanBorrowedInterface[] | undefined;
   handleGetSystemLoansBorrowed: () => Promise<void>;
+
+  systemStatisticData: SystemStatisticInterface | undefined;
+  handleGetSystemStatistics: () => Promise<void>;
 
   systemTotalSupplyAsset: number;
   systemEarnFromSuppliedAsset: number;

@@ -146,6 +146,20 @@ export interface ResLoanBorrowedInterface {
   activeContractPerAsset: number;
 }
 
+export interface SystemStatisticInterface {
+  wallets: number;
+  offers: number;
+  loans: number;
+  activeOffers: number;
+  activeLoans: number;
+  transactions:TransactionInterface[];
+}
+
+export interface TransactionInterface {
+  transactionHash: string;
+  type: 'Offer' | 'Loan';
+}
+
 export interface SuppliedAssetInterface {
   lendSupplied: LendSuppliedAssetInterface[];
   collateralSupplied: CollateralSuppliedAssetInterface[];

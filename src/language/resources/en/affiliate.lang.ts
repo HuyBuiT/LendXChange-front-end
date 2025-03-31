@@ -6,8 +6,8 @@ export default {
   lReferral: 'Referral',
   lShareOn: 'Share on',
   lDrawToClaim: 'Draw to claim',
-  lExploreEnsoPoint: 'Explore Enso Point',
-  lEnsoPoint: 'Enso Point',
+  lExploreEnsoPoint: 'Explore LendXChange Point',
+  lEnsoPoint: 'LendXChange Point',
   lCurrentBalance: 'Current Balance',
   lLearnMore: 'Learn More',
   lBreakdown: 'Breakdown',
@@ -48,7 +48,7 @@ export default {
   msgReferFriends: 'Refer friends and earn rewards!',
   msgBurnNFT: 'Burn NFT to boost points up to',
   msgIfYouHaveBoth:
-    'If you have both types of EnsoFi Pass, the Early Contributor Pass will be used first',
+    'If you have both types of LendXChange Pass, the Early Contributor Pass will be used first',
   msgEstENS: 'Est. $ENS in Season 1',
   msgConnectWalletToView: 'Connect wallet to view stats',
 

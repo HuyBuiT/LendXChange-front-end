@@ -11,7 +11,7 @@ import {
   ActiveLoanListResponseInterface,
   OfferTemplatesApiResponseInterface,
 } from '@/models';
-import { ResSuppliedAssetInterface, ResLoanBorrowedInterface } from '@/models/home.model';
+import { ResSuppliedAssetInterface, ResLoanBorrowedInterface, SystemStatisticInterface } from '@/models/home.model';
 
 export const getOfferTemplatesService = async (
   selectedChain: SupportedChainEnum,
@@ -182,6 +182,21 @@ export const getSystemLoanBorrowedService = async (access: string) => {
   const responseData = CommonUtils.getDappServicesResponseData(
     response,
   ) as ResLoanBorrowedInterface[];
+
+  if (responseData) {
+    return responseData;
+  } else {
+    return undefined;
+  }
+};
+
+export const getSystemStatistic = async (access: string) => {
+  const response: ApiResponse<BaseResponseData<SystemStatisticInterface>> =
+    await createDappServices(access).get(ApiConstant.SYSTEM_STATISTIC);
+
+  const responseData = CommonUtils.getDappServicesResponseData(
+    response,
+  ) as SystemStatisticInterface;
 
   if (responseData) {
     return responseData;

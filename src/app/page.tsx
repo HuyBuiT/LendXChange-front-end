@@ -21,8 +21,8 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title: AppConstant.META_DATA_HOME_DEFAULT.title,
       description: AppConstant.META_DATA_HOME_DEFAULT.description,
-      site: '@EnsoFi_xyz',
-      creator: '@EnsoFi_xyz',
+      site: '@LendXChange',
+      creator: '@LendXChange',
       images: [
         {
           url: AppConstant.META_DATA_HOME_DEFAULT.urlImage,

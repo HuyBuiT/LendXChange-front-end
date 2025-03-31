@@ -1,9 +1,9 @@
-import { getLoanBorrowedService, getSuppliedAssetService, getSystemLoanBorrowedService, getSystemSuppliedAssetService } from '@/services/home-services';
+import { getLoanBorrowedService, getSuppliedAssetService, getSystemLoanBorrowedService, getSystemSuppliedAssetService, getSystemStatistic } from '@/services/home-services';
 import {
   refactorLoanBorrowed,
   refactorSuppliedAsset,
 } from './helper';
-import { SuppliedAssetInterface, LoanBorrowedInterface } from '@/models/home.model';
+import { SuppliedAssetInterface, LoanBorrowedInterface, SystemStatisticInterface } from '@/models/home.model';
 
 const usePortfolioHooks = () => {
   const handleGetSuppliedAsset = async (access: string) => {
@@ -47,11 +47,21 @@ const usePortfolioHooks = () => {
     }
   };
 
+  const handleGetSystemStatistic = async (access: string) => {
+    const responseData = await getSystemStatistic(access);
+    if (responseData) {
+      return responseData;
+    } else {
+      return {} as SystemStatisticInterface;
+    }
+  };
+
   return {
     handleGetLoanBorrowed,
     handleGetSuppliedAsset,
     handleGetSystemSuppliedAsset,
     handleGetSystemLoanBorrowed,
+    handleGetSystemStatistic,
   };
 };
 
