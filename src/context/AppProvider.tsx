@@ -35,7 +35,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   );
 
   const [selectedChain, setSelectedChain] = useState<SupportedChainEnum>(
-    localStorage.getItem(AppConstant.KEY_CHAIN) as SupportedChainEnum,
+    SupportedChainEnum.Sui,
   );
 
   // Assets

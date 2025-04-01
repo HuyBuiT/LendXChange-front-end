@@ -10,13 +10,18 @@ import { addSubdomain } from '@/utils/common.utils';
 import { NetworkModeEnum } from '@/models';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 const AdminPage = () => {
-  const { handleGetSystemStatistics } = usePortfolioContext();
+  const { handleGetSystemLoansBorrowed, handleGetSystemStatistics } = usePortfolioContext();
 
   useDeepCompareEffect(() => {
     handleGetSystemStatistics();
+    handleGetSystemLoansBorrowed();
   }, []);
 
-  const { systemStatisticData } = usePortfolioContext();
+  const { systemStatisticData, systemLoanBorrowedData } = usePortfolioContext();
+
+  const systemInterestOwnedAmount = systemLoanBorrowedData
+  ? parseFloat(systemLoanBorrowedData.reduce((acc, item) => acc + item.interestOwedAmount, 0).toFixed(2))
+  : 0;
 
   const { connectedChainAddress, isWalletConnected } = useAuthContext();
   const router = useRouter();
@@ -26,7 +31,7 @@ const AdminPage = () => {
   const itemsPerPage = 5;
 
   useEffect(() => {
-    console.log('systemStatisticData', systemStatisticData);
+    console.log('systemLoanBorrowedData', systemLoanBorrowedData);
     // If wallet is connected, check if address is in admin list
     if (isWalletConnected) {
       const isAdmin = connectedChainAddress && AdminAddresses.includes(connectedChainAddress);
@@ -118,6 +123,22 @@ const AdminPage = () => {
           <h3 className="font-semibold text-lg mb-4">{t('lSystemActivity')}</h3>
           <div className="space-y-4">
             <div className="flex justify-between border-b border-characterBackground2 pb-2">
+              <span className="text-neutral5">Total Lend Fee</span>
+              <span className="font-medium">
+                {systemInterestOwnedAmount !== 0 ?
+                  `${(systemInterestOwnedAmount) * 0.02} USDC` : 
+                  '0 USDC'}
+              </span>
+            </div>
+            <div className="flex justify-between border-b border-characterBackground2 pb-2">
+              <span className="text-neutral5">Total Borrow Fee</span>
+              <span className="font-medium">
+                {systemInterestOwnedAmount !== 0 ?
+                  `${(systemInterestOwnedAmount) * 0.02} USDC` : 
+                  '0 USDC'}
+              </span>
+            </div>
+            <div className="flex justify-between border-b border-characterBackground2 pb-2">
               <span className="text-neutral5">{t('lActiveOfferRatio')}</span>
               <span className="font-medium">
                 {systemStatisticData?.offers ? 
@@ -172,7 +193,7 @@ const AdminPage = () => {
                     rel="noopener noreferrer"
                     className="block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-300" 
                   >
-                     {tx.type}: {tx.transactionHash.slice(0, 6)}...{tx.transactionHash.slice(-6)}
+                     {tx.type} Tx: {tx.transactionHash.slice(0, 6)}...{tx.transactionHash.slice(-6)}
                   </a>
                 ))
               ) : (
