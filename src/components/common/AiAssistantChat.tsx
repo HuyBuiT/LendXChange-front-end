@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import { useAuthContext } from '@/context';
 
 const AIAssistant = () => {
-    const { connectedChainAddress } = useAuthContext();
+  const { connectedChainAddress } = useAuthContext();
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [messages, setMessages] = useState([
     { 
@@ -22,6 +22,13 @@ const AIAssistant = () => {
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  
+  // Suggested questions that users commonly ask
+  const suggestedQuestions = [
+    "What is LendXChange?",
+    "How can I take a loan?",
+    "How can I check my current lending positions?"
+  ];
 
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
@@ -35,13 +42,13 @@ const AIAssistant = () => {
     }
   }, [messages]);
 
-  const handleSendMessage = async () => {
-    if (inputMessage.trim() === '') return;
+  const handleSendMessage = async (text = inputMessage) => {
+    if (text.trim() === '') return;
     
     // Add user message
     const newUserMessage = {
       id: messages.length + 1,
-      text: inputMessage,
+      text: text,
       isBot: false
     };
     
@@ -57,7 +64,7 @@ const AIAssistant = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          text: inputMessage,
+          text: text,
           walletAddress: connectedChainAddress,
         }),
       });
@@ -101,16 +108,28 @@ const AIAssistant = () => {
     }
   };
 
+  // Handle clicking on a suggested question
+  const handleSuggestedQuestion = (question: string) => {
+    handleSendMessage(question);
+  };
+
   return (
     <>
       {/* AI Assistant Chat Button */}
       <div className="fixed bottom-6 right-6 z-50">
         <button 
           onClick={toggleChat}
-          className="flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+          className="flex items-center gap-2 justify-center px-4 h-14 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg hover:shadow-xl transition-all duration-300"
           aria-label="Chat with AI Assistant"
         >
-          {isChatOpen ? <X size={24} /> : <MessageCircle size={24} />}
+          {isChatOpen ? (
+            <X size={24} />
+          ) : (
+            <>
+              <MessageCircle size={24} />
+              <span className="text-sm font-medium">Ask AI</span>
+            </>
+          )}
         </button>
       </div>
 
@@ -161,6 +180,22 @@ const AIAssistant = () => {
                 </div>
               )}
             </div>
+
+            {/* Suggested Questions - Only show if there are no user messages yet */}
+            {messages.length <= 2 && (
+              <div className="mt-4 space-y-2">
+                <p className="text-gray-400 text-xs">Try asking:</p>
+                {suggestedQuestions.map((question, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleSuggestedQuestion(question)}
+                    className="w-full text-left text-sm p-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-white transition-colors duration-200"
+                  >
+                    {question}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
           
           <div className="p-3 border-t border-gray-700">
@@ -175,7 +210,7 @@ const AIAssistant = () => {
                 disabled={isLoading}
               />
               <button 
-                onClick={handleSendMessage}
+                onClick={() => handleSendMessage()}
                 className={`ml-2 text-purple-400 hover:text-purple-300 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
                 disabled={isLoading}
               >

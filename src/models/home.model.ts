@@ -157,6 +157,7 @@ export interface SystemStatisticInterface {
 
 export interface TransactionInterface {
   transactionHash: string;
+  timestamp: Date;
   type: 'Offer' | 'Loan';
 }
 

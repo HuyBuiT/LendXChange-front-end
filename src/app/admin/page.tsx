@@ -29,7 +29,24 @@ const AdminPage = () => {
   const [isAuthorized, setIsAuthorized] = useState<boolean | "">("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+  // Add these state variables
+  const [activeFilter, setActiveFilter] = useState('All');
 
+  // Filter transactions based on the active filter
+  const filteredTransactions = systemStatisticData?.transactions.filter(tx => {
+    if (activeFilter === 'All') return true;
+    return tx.type === activeFilter;
+  });
+
+  // Format timestamp function
+  const formatTimestamp = (timestamp: Date) => {
+    const date = new Date(timestamp);
+    return date.toLocaleString(undefined, {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+  };
   useEffect(() => {
     console.log('systemLoanBorrowedData', systemLoanBorrowedData);
     // If wallet is connected, check if address is in admin list
@@ -71,9 +88,6 @@ const AdminPage = () => {
       </div>
     </div>
   );
-  const transactions = systemStatisticData?.transactions || [];
-  const totalPages = Math.ceil(transactions.length / itemsPerPage);
-  const currentTransactions = transactions.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   // If authorized, show admin page content
   return (
     <div className="container mx-auto p-6">
@@ -174,53 +188,97 @@ const AdminPage = () => {
         </div>
         
         <div className="bg-characterBackground3 rounded-lg p-6">
-          <h3 className="font-semibold text-lg mb-4">{t('lTransactionHistory')}</h3>
-          <div className="bg-characterBackground2 rounded-lg p-4 w-full">
-            <div className="mt-2 text-sm text-neutral5 space-y-2">
-              {currentTransactions.length > 0 ? (
-                currentTransactions.map((tx, index) => (
-                  <a
-                    key={index}
-                    href={`${
-                      process.env.NETWORK_MODE === NetworkModeEnum.MAIN_NET
-                        ? process.env.NEXT_PUBLIC_SUI_EXPLORER_URL
-                        : addSubdomain(
-                            process.env.NEXT_PUBLIC_SUI_EXPLORER_URL,
-                            NetworkModeEnum.TEST_NET,
-                            )
-                    }/txblock/${tx.transactionHash}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-300" 
-                  >
-                     {tx.type} Tx: {tx.transactionHash.slice(0, 6)}...{tx.transactionHash.slice(-6)}
-                  </a>
-                ))
-              ) : (
-                <p>{t('lNoRecentTransactions')}</p>
-              )}
-            </div>
-            {totalPages > 1 && (
-              <div className="flex justify-center mt-4 items-center space-x-4">
-                <button
-                  className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors duration-300 disabled:opacity-50"
-                  disabled={currentPage === 1}
-                  onClick={() => setCurrentPage(currentPage - 1)}
-                >
-                  <ArrowLeft />
-                </button>
-                <span className="text-white font-semibold">{currentPage} / {totalPages}</span>
-                <button
-                  className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors duration-300 disabled:opacity-50"
-                  disabled={currentPage === totalPages}
-                  onClick={() => setCurrentPage(currentPage + 1)}
-                >
-                  <ArrowRight />
-                </button>
+  <h3 className="font-semibold text-lg mb-4">{t('lTransactionHistory')}</h3>
+  
+  {/* Filter Buttons */}
+  <div className="flex space-x-2 mb-4">
+    <button
+      onClick={() => setActiveFilter('All')}
+      className={`px-4 py-2 rounded-lg transition-colors duration-300 ${
+        activeFilter === 'All' 
+          ? 'bg-blue-600 text-white' 
+          : 'bg-gray-700 text-white hover:bg-gray-600'
+      }`}
+    >
+      {t('All')}
+    </button>
+    <button
+      onClick={() => setActiveFilter('Offer')}
+      className={`px-4 py-2 rounded-lg transition-colors duration-300 ${
+        activeFilter === 'Offer' 
+          ? 'bg-blue-600 text-white' 
+          : 'bg-gray-700 text-white hover:bg-gray-600'
+      }`}
+    >
+      {t('Offer')}
+    </button>
+    <button
+      onClick={() => setActiveFilter('Loan')}
+      className={`px-4 py-2 rounded-lg transition-colors duration-300 ${
+        activeFilter === 'Loan' 
+          ? 'bg-blue-600 text-white' 
+          : 'bg-gray-700 text-white hover:bg-gray-600'
+      }`}
+    >
+      {t('Loan')}
+    </button>
+  </div>
+  
+  <div className="bg-characterBackground2 rounded-lg p-4 w-full">
+    <div className="mt-2 text-sm text-neutral5 space-y-2">
+      {filteredTransactions && filteredTransactions.length > 0 ? (
+        filteredTransactions
+          .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+          .map((tx, index) => (
+            <a
+              key={index}
+              href={`${
+                process.env.NETWORK_MODE === NetworkModeEnum.MAIN_NET
+                  ? process.env.NEXT_PUBLIC_SUI_EXPLORER_URL
+                  : addSubdomain(
+                      process.env.NEXT_PUBLIC_SUI_EXPLORER_URL,
+                      NetworkModeEnum.TEST_NET,
+                    )
+              }/txblock/${tx.transactionHash}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-300" 
+            >
+              <div className="flex justify-between items-center">
+                <div>
+                  {tx.type} Tx: {tx.transactionHash.slice(0, 6)}...{tx.transactionHash.slice(-6)}
+                </div>
+                <div className="text-xs opacity-75">
+                  {formatTimestamp(tx.timestamp)}
+                </div>
               </div>
-            )}
-          </div>
-        </div>
+            </a>
+          ))
+      ) : (
+        <p>{t('lNoRecentTransactions')}</p>
+      )}
+    </div>
+    {filteredTransactions && filteredTransactions.length > itemsPerPage && (
+      <div className="flex justify-center mt-4 items-center space-x-4">
+        <button
+          className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors duration-300 disabled:opacity-50"
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage(currentPage - 1)}
+        >
+          <ArrowLeft />
+        </button>
+        <span className="text-white font-semibold">{currentPage} / {Math.ceil(filteredTransactions.length / itemsPerPage)}</span>
+        <button
+          className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors duration-300 disabled:opacity-50"
+          disabled={currentPage === Math.ceil(filteredTransactions.length / itemsPerPage)}
+          onClick={() => setCurrentPage(currentPage + 1)}
+        >
+          <ArrowRight />
+        </button>
+      </div>
+    )}
+  </div>
+</div>
       </div>
     </div>
   );
