@@ -41,7 +41,8 @@ const AdminPage = () => {
   // Format timestamp function
   const formatTimestamp = (timestamp: Date) => {
     const date = new Date(timestamp);
-    return date.toLocaleString(undefined, {
+    return date.toLocaleString('en-US', {
+      timeZone: 'UTC', // Force UTC interpretation
       year: 'numeric',
       month: 'short',
       day: 'numeric',
