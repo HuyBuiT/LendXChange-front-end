@@ -19,7 +19,7 @@ const StatusComponent: React.FC<StatusComponentProps> = ({
     if (dataContract.status === LoanStatus.FINISHED) {
       const repaidTimeLabel = CommonUtils.getTimeLabel(
         getLabel,
-        dataContract.payment.createdAt,
+        dataContract.endDate,
       );
       return getLendLabel('fmRepaidAgo', { time: repaidTimeLabel });
     }
